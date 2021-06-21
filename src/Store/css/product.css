@@ -1,0 +1,35 @@
+.card-product ,.card{
+    background-color: rgb(212, 190, 248);
+    padding: 20px 20px; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card:hover{
+    background-color: rgb(199, 166, 252);
+    transition: all 0.8s ease-in-out;
+}
+
+.order-summary{
+    background-color: rgb(226, 226, 226);
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.btn-table{
+    width: 100px;
+}
+
+@media screen and (max-width: 767px) {
+    .card{
+        max-height: 350px;
+    }
+    
+    .card img{
+        max-height: 50%;
+        max-width: 50%;
+        margin: auto;
+        display: block;
+    }
+}
