@@ -10,10 +10,10 @@ return <>
         <Form.Control 
         type="text" 
         name={"lastName"}
-        isInvalid = {props.inputsDetails["lastName"].inValid} 
+        isInvalid = {props.inputs["lastName"].inValid} 
         placeholder="שם משפחה" 
-        onBlur={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}}/>
-        {props.inputsDetails["lastName"].errors.map((value,index)=>
+        onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>
+        {props.inputs["lastName"].errors.map((value,index)=>
         {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
     </InputGroup>
 </>

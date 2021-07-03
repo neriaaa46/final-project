@@ -1,18 +1,107 @@
 import {Container,Button,Col,Row} from "react-bootstrap"
-import { useEffect } from "react"
-import clearInputsDetails from "../function/clearInputsDetails"
+import { useState } from "react"
+import validation from "../function/validation"
 import Email from "./inputsComponent/Email"
 import Password from "./inputsComponent/Password"
 import ConfirmPassword from "./inputsComponent/ConfirmPassword"
 import FirstName from "./inputsComponent/FirstName"
 import LastName from "./inputsComponent/LastName"
+import {UpdateDetailsUserDal, isNotExist} from "../Dal/api"
+
+function UpdateDetails(){
+
+    const[userExist,setUserExist] = useState(false)
+    const [updateInputsDetails, setUpdateInputsDetails] = useState({
+        firstName: {
+            value: '', 
+            name:"שם פרטי",
+            inValid:false,
+            appropriateError:"אותיות בלבד",
+            errors: [], 
+            validations: {
+                required: true, 
+                pattern: /^[a-z\u0590-\u05fe]+$/i
+            }
+        }, 
+        lastName: {
+            value: '',
+            name:"שם משפחה",
+            inValid:false,
+            appropriateError:"אותיות בלבד",
+            errors:[], 
+            validations:{
+                required: true, 
+                pattern: /^[a-z\u0590-\u05fe]+$/i
+            }
+        },
+        email: {
+            value: '',
+            name:"דואר אלקטרוני",
+            inValid:false,
+            appropriateError:"לא תקין", 
+            errors:[], 
+            validations:{
+                required: true, 
+                pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
+            }
+        },
+        password: {
+            value: '',
+            name:"סיסמא",
+            inValid:false,
+            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            errors:[], 
+            validations:{
+                required: true, 
+                pattern: /^(?=.*[a-z])(?=.*[0-9])(?=.{6,})/ 
+            }
+        },
+        confirmPassword: {
+            value: '',
+            name:"אימות סיסמא",
+            inValid:false,
+            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            errors:[], 
+            validations:{
+                required: true, 
+                pattern: /^(?=.*[a-z])(?=.*[0-9])(?=.{6,})/  
+            }
+        }
+       
+    })
 
 
-function UpdateDetails(props){
+    async function updateDetailsUser(){
+        let isValid = true
+        const user = {}
 
-    useEffect(() => {
-        clearInputsDetails(props.inputsDetails)
-    },[]);
+       for (const key in updateInputsDetails) {
+
+            user[key] = updateInputsDetails[key].value
+
+            setUpdateInputsDetails(validation({value:updateInputsDetails[key].value,name:key},updateInputsDetails))
+            if (updateInputsDetails[key].errors.length !==0){
+                isValid = false
+            }
+        }
+
+        if(isValid){ 
+            try{
+                const notExist = await isNotExist(updateInputsDetails["email"].value)
+                 setUserExist(notExist)
+                 UpdateDetailsUserDal(user)
+             }
+             catch{
+                 setUserExist(true)
+                 setTimeout(() => {
+                    setUserExist(false)
+                }, 1500);
+             }
+           
+        }
+    }
+
+
 
     return <>
     <Container className="mt-5">
@@ -21,13 +110,14 @@ function UpdateDetails(props){
             <Col xs={12} md={5}>
                 <Container >
                         <Col className="mt-5">
-                            <FirstName setDetailsinputs={props.setDetailsinputs} inputsDetails={props.inputsDetails}/>
+                            <FirstName setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                         </Col>
                         <Col className="mt-5">
-                            <LastName setDetailsinputs={props.setDetailsinputs} inputsDetails={props.inputsDetails}/>
+                            <LastName setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                         </Col>
                         <Col className="mt-5">
-                            <Email setDetailsinputs={props.setDetailsinputs} inputsDetails={props.inputsDetails}/>
+                            <Email setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
+                            {userExist&&<small className="text-danger">אימייל זה קיים במערכת !</small>}
                         </Col>
                 </Container>
             </Col>
@@ -35,14 +125,14 @@ function UpdateDetails(props){
             <Col xs={12} md={5}>
                 <Container>
                     <Col className="mt-5">
-                        <Password setDetailsinputs={props.setDetailsinputs} inputsDetails={props.inputsDetails}/>
+                        <Password setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                     </Col>
                     <Col className="mt-5">
-                        <ConfirmPassword setDetailsinputs={props.setDetailsinputs} inputsDetails={props.inputsDetails}/>
+                        <ConfirmPassword setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                     </Col>
                     <Col className="mt-5">
                         <Container className="d-flex justify-content-center mt-5">
-                            <Button className="col-12 col-md-6 mt-3" variant="light">עדכן פרטים</Button>
+                            <Button className="col-12 col-md-6 mt-3" variant="light" onClick={()=>updateDetailsUser()}>עדכן פרטים</Button>
                         </Container>
                     </Col>
                 </Container>

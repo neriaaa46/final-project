@@ -7,4 +7,9 @@ body{
 
 .badge{
   background-color: rgb(212, 190, 248);
+} 
+
+.link-nav{
+  text-decoration: none;
+  color: rgb(56, 56, 56);
 }

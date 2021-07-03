@@ -1,11 +1,11 @@
-.card-product ,.card{
+.card-product ,.card-myProducts{
     background-color: rgb(212, 190, 248);
     padding: 20px 20px; 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.card:hover{
-    background-color: rgb(199, 166, 252);
+.card-myProducts:hover{
+    background-color: rgb(192, 153, 255);
     transition: all 0.8s ease-in-out;
 }
 
@@ -21,15 +21,58 @@
     width: 100px;
 }
 
+.description{
+    white-space: pre-line ;
+}
+
 @media screen and (max-width: 767px) {
-    .card{
+    .card-myProducts{
         max-height: 350px;
     }
     
-    .card img{
-        max-height: 50%;
-        max-width: 50%;
+    .card-myProducts img{
+        max-height: 40%;
+        max-width: 40%;
         margin: auto;
         display: block;
     }
+}
+
+
+
+.modal-register-login{
+    background-color: rgb(212, 190, 248);
+}
+
+.modal-register-login p{
+    font-size: 16px;
+}
+
+.modal-register-login p span{
+    color: rgb(77, 77, 228);
+    cursor: pointer;
+}
+.modal-register-login p span:hover{
+    color: rgb(20, 20, 151);
+    font-size: 17px;
+}
+
+
+
+
+.status-pending{
+    background-color: rgb(245, 163, 163);
+}
+.status-inProgress{
+    background-color: rgb(241, 222, 170);
+}
+.status-ready {
+    background-color: rgb(152, 236, 232);
+}
+.status-sent{
+    background-color: rgb(101, 206, 162);
+}
+
+.show-orders{
+    cursor: pointer;
 }

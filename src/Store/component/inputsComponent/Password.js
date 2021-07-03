@@ -13,9 +13,9 @@ function Password(props){
             type="password"
             name="password"
             required placeholder="סיסמא"
-            isInvalid = {props.inputsDetails["password"].inValid}
-            onBlur={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}} />
-            {props.inputsDetails["password"].errors.map((value,index)=>
+            isInvalid = {props.inputs["password"].inValid}
+            onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>
+            {props.inputs["password"].errors.map((value,index)=>
             {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </InputGroup>
     </>

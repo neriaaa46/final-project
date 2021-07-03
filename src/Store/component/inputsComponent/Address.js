@@ -10,10 +10,11 @@ function Address(props){
         <Form.Control 
         type="text" 
         name="address"
-        isInvalid = {props.inputsDetails["address"].inValid}
+        defaultValue={props.address}
+        isInvalid = {props.inputs["address"].inValid}
         placeholder="כתובת" 
-        onBlur={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}}/>
-        {props.inputsDetails["address"].errors.map((value,index)=>
+        onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>
+        {props.inputs["address"].errors.map((value,index)=>
         {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
     </InputGroup>
     </>

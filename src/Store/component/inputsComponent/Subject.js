@@ -11,8 +11,8 @@ function Subject(props) {
                     as="select" 
                     custom 
                     name ="subject" 
-                    isInvalid = {props.inputsDetails["subject"].inValid}
-                    onChange={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}}>
+                    isInvalid = {props.inputs["subject"].inValid}
+                    onChange={(e)=>{props.setInputs(validation(e.target,props.inputs))}}>
                         <option value="">בחר נושא</option>
                         <option value="1">התחברות לאתר</option>
                         <option value="2">הזמנה מהאתר</option>
@@ -20,7 +20,7 @@ function Subject(props) {
                         <option value="4">משלוח מתעכב</option>
                         <option value="5">אחר...</option>
                 </Form.Control>
-                {props.inputsDetails["subject"].errors.map((value,index)=>
+                {props.inputs["subject"].errors.map((value,index)=>
                 {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
             </InputGroup>
     </>

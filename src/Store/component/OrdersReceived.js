@@ -1,29 +1,37 @@
-import {Container,Button,Table} from "react-bootstrap"
+import { useEffect, useState } from "react"
+import {Container} from "react-bootstrap"
+import "../css/product.css"
+import {getAllOrders} from "../Dal/api"
+import OrdersTable from "./orderRecivedComponent/OrdersTable"
+
 
 function OrderReceived(){
+
+    const [orders, setOrders] = useState([])
+
+    useEffect(()=>{
+        getOrders()
+    },[])
+
+
+    async function getOrders(){
+        try{
+            const allOrders = await getAllOrders()
+            console.log(allOrders);
+            setOrders(allOrders)
+        }
+        catch(error){
+            setOrders([])
+        }
+    }
+
     return <>
-        <Container className="mt-5">
-            <h1>הזמנות שהתקבלו</h1>
-            <Table responsive="sm" className="card-product mt-4" >
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>מספר הזמנה</th>
-                        <th>תאריך</th>
-                        <th>כתובת</th>
-                        <th>סטאטוס</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1570</td>
-                        <td>01.01.2016</td>
-                        <td>שרה אהרונסון 23/4 גדרה</td>
-                        <td>התקבל</td> 
-                    </tr>
-                </tbody>
-            </Table>
+        <Container className="mt-2">
+            <h1>הזמנות שהתקבלו :</h1>
+            
+            {orders.map(order =>
+            <OrdersTable order={order}/>
+            )}
         </Container>
     </>
 }

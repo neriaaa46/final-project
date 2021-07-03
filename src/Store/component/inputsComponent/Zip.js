@@ -10,10 +10,11 @@ function Zip(props){
         <Form.Control 
         type="text" 
         name="zip"
-        isInvalid = {props.inputsDetails["zip"].inValid}
+        defaultValue={props.zip}
+        isInvalid = {props.inputs["zip"].inValid}
         placeholder="מיקוד" 
-        onBlur={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}}/>
-        {props.inputsDetails["zip"].errors.map((value,index)=>
+        onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>
+        {props.inputs["zip"].errors.map((value,index)=>
         {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
     </InputGroup>
     </>

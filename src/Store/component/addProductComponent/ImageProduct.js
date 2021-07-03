@@ -1,14 +1,18 @@
-import {Form} from "react-bootstrap"
+import {Form, InputGroup} from "react-bootstrap"
+import validation from "../../function/validation"
 
 
-
-function ImageProduct(){
+function ImageProduct(props){
     return <>
-       <Form>
-            <Form.Group>
-                <Form.File id="exampleFormControlFile1" label="תמונה המייצגת את המוצר" />
-            </Form.Group>
-        </Form>
+      <InputGroup hasValidation>
+                <Form.File 
+                id="exampleFormControlFile1" 
+                label="תמונה המייצגת את המוצר"
+                name="image" 
+                onChange={(e)=>{props.setNewProduct(validation(e.target,props.newProduct))}}/>
+                {props.newProduct["image"].errors.map((value,index)=>
+                {return <small key={index} className="text-danger"> {value} </small>})}
+        </InputGroup>
     </>
 }
 

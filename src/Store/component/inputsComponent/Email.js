@@ -12,10 +12,10 @@ function Email(props){
             <Form.Control type="email"
                           required placeholder="דואר אלקטרוני"
                           name="email"
-                          isInvalid = {props.inputsDetails["email"].inValid}
+                          isInvalid = {props.inputs["email"].inValid}
                           className="inputs"
-                          onBlur={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}}/>
-                {props.inputsDetails["email"].errors.map((value,index)=>
+                          onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>
+                {props.inputs["email"].errors.map((value,index)=>
                 {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </InputGroup>
     </>

@@ -13,9 +13,9 @@ function ConfirmPassword(props){
             type="password"
             name="confirmPassword"
             required placeholder="אימות סיסמא" 
-            isInvalid = {props.inputsDetails["confirmPassword"].inValid}
-            onBlur={(e)=>{props.setDetailsinputs(validation(e.target,props.inputsDetails))}}/>
-            {props.inputsDetails["confirmPassword"].errors.map((value,index)=>
+            isInvalid = {props.inputs["confirmPassword"].inValid}
+            onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>
+            {props.inputs["confirmPassword"].errors.map((value,index)=>
             {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </InputGroup>
     </>
