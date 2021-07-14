@@ -2,7 +2,7 @@ import {Table,ButtonGroup,Button,Row,Col} from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { GiClick } from "react-icons/gi"
 import ModalOrderDetails from "./ModalOrderDetails"
-import {setStatusOrder,getStatusOrder} from "../../Dal/api"
+import {updateStatusOrder,getStatusOrder} from "../../Dal/api"
 
 
 function OrdersTable(props){
@@ -19,15 +19,16 @@ function OrdersTable(props){
             const statusOrder = await getStatusOrder(props.order.orderId)
             setStatus(statusOrder)
         }
-        catch{
-
+        catch(error){
+            console.log(error.message);
         }
-        
     }
 
-    function changeStatus(statusOrderToData, statusOrderToClass){
-        setStatusOrder(props.order.orderId,statusOrderToData)
-        setStatus(statusOrderToClass)
+    async function changeStatus(statusId, statusOrderToClass){
+        const {status} = await updateStatusOrder(props.order.orderId,statusId)
+        if(status === "ok"){
+            setStatus(statusOrderToClass)
+        }
    }
    
     const handleShow = () => {
@@ -38,14 +39,10 @@ function OrdersTable(props){
     } 
    
    
-
-
-
-
     return <>
     <Row className="justify-content-center">
         <ModalOrderDetails handleClose={handleClose} showModal={showModal} order={props.order}/>
-        <Col xs={12} md={10} lg={6}>
+        <Col xs={12} md={10} lg={7}>
         <Table striped bordered hover size="sm" className={`card-product status-${status} mt-4`}>
             <thead>
                 <tr>
@@ -58,13 +55,13 @@ function OrdersTable(props){
             <tbody>
                 <tr>
                     <td>{props.order.orderId}</td>
-                    <td>{props.order.date}</td>
+                    <td>{props.order.date.slice(0,9)}</td>
                     <td><GiClick size={30} onClick={handleShow} className="show-orders"/></td>
                     <td>
                         <ButtonGroup size="sm">
-                            <Button variant="warning" className="ml-1" onClick={()=>changeStatus("בהכנה","inProgress")}>בהכנה</Button>
-                            <Button variant="info" className="ml-1" onClick={()=>changeStatus("מוכן","ready")}>מוכן</Button>
-                            <Button variant="success" className="ml-1" onClick={()=>changeStatus("נשלח","sent")}>נשלח</Button>
+                            <Button variant="warning" className="ml-1" onClick={()=>changeStatus(2,"inProgress")}>בהכנה</Button>
+                            <Button variant="info" className="ml-1" onClick={()=>changeStatus(3,"ready")}>מוכן</Button>
+                            <Button variant="success" className="ml-1" onClick={()=>changeStatus(4,"sent")}>נשלח</Button>
                         </ButtonGroup>
                     </td> 
                 </tr>

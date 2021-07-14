@@ -1,367 +1,206 @@
-const users = [
-  {
-    id: 1,
-    admin: true,
-    firstName: "נריה",
-    lastName: "סיון",
-    email: "neriaaa46@gmail.com",
-    password: "ns111222",
-  },
-  {
-    id: 2,
-    admin: false,
-    firstName: "יעקוב",
-    lastName: "קאסה",
-    email: "yakov@gmail.com",
-    password: "yk111222",
-  },
-  {
-    id: 3,
-    admin: false,
-    firstName: "אלומה",
-    lastName: "סיון",
-    email: "aluma@gmail.com",
-    password: "as111222",
-  },
-]
-
-const products = [
-  {
-    id: 1,
-    name: "בלוק עץ ריבוע",
-    category: "הדפסה על מוצר",
-    size: "10x10",
-    description: `- הדפסה על בלק עץ בגודל 10*10 ס"מ.
-    - הדפסה על גבי נייר סמי-מט/מבריק איכותי המודבק ללוח עץ בעובי 2.8 ס"מ.
-    - אנו לא מוסיפים טקסטים לתמונות אך ניתן לשלוח אלינו קבצים עם טקסטים מוטמעים בתמונות.
-    - המחיר אינו כולל משלוח, ניתן לבצע איסוף עצמי בחינם.
-    `,
-    price: "15",
-    quntityOfImages: "1",
-    image: "/img/product1.jpg",
-  },
-
-  {
-    id: 2,
-    name: "בלוק עץ ריבוע",
-    category: "הדפסה על מוצר",
-    size: "15x15",
-    description: `- הדפסה על בלק עץ בגודל 15*15 ס"מ.
-    - הדפסה על גבי נייר סמי-מט/מבריק איכותי המודבק ללוח עץ בעובי 2.8 ס"מ.
-    - אנו לא מוסיפים טקסטים לתמונות אך ניתן לשלוח אלינו קבצים עם טקסטים מוטמעים בתמונות.
-    - המחיר אינו כולל משלוח, ניתן לבצע איסוף עצמי בחינם.
-    `,
-    price: "25",
-    quntityOfImages: "1",
-    image: "/img/product2.jpg",
-  },
-
-  {
-    id: 3,
-    name: "בלוק עץ ריבוע",
-    category: "הדפסה על מוצר",
-    size: "20x20",
-    description: `- הדפסה על בלק עץ בגודל 20*20 ס"מ.
-    - הדפסה על גבי נייר סמי-מט/מבריק איכותי המודבק ללוח עץ בעובי 2.8 ס"מ.
-    - אנו לא מוסיפים טקסטים לתמונות אך ניתן לשלוח אלינו קבצים עם טקסטים מוטמעים בתמונות.
-    - המחיר אינו כולל משלוח, ניתן לבצע איסוף עצמי בחינם.
-    `,
-    price: "40",
-    quntityOfImages: "1",
-    image: "/img/product3.png",
-  },
-];
+const url = "http://localhost:3100"
+export const pathImages = "http://localhost:3100/imagesProduct/"
+export const pathOrdersImage = "http://localhost:3100/imagesOrders/"
+export const pathOrdersDataBase = "http://localhost:3100/imagesDataBase/"
 
 
-const orders = [
-    {
-      orderId:1,
-      userId:2,
-      firstName:"נריה",
-      lastName: "סיון",
-      email:"neriaaa46@gmail.com",
-      address: "רמת גן, הרקפת 20",
-      zip: "00645433",
-      phone: "0526665551",
-      date: "13.5.14",
-      totalPrice: 150,
-      statusName: "ממתין",
-      products: [
-        {
-          id: 1,
-          name: "בלוק עץ ריבוע",
-          size: "10x10",
-          quntityOfImages: "1",
-          price:"15",
-          image: "/img/product1.jpg",
-        },
-        {
-          id: 2,
-          name: "בלוק עץ ריבוע",
-          size: "15x15",
-          quntityOfImages: "1",
-          price:"25",
-          image: "/img/product2.jpg",
-        },
-      ],
+//users
+
+async function toRegister(registerInputsDetails) {
+  const response = await fetch(`${url}/users/`, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json",
     },
-    {
-        orderId:2,
-        userId:2,
-        firstName:"יעקוב",
-        lastName: "קאסה",
-        email:"yakov@gmail.com",
-        address: "רמת גן, הרקפת 20",
-        zip: "00645433",
-        phone: "0526665551",
-        date: "20.4.16",
-        totalPrice: 15,
-        statusName: "בהכנה",
-        products: [
-          {
-            id: 1,
-            name: "בלוק עץ ריבוע",
-            size: "10x10",
-            quntityOfImages: "1",
-            price:"15",
-            image: "/img/product1.jpg",
-          }
-        ],
-      },
-      {
-        orderId:3,
-        userId:2,
-        firstName:"יעקוב",
-        lastName: "קאסה",
-        email:"yakov@gmail.com",
-        address: "רמת גן, הרקפת 20",
-        zip: "00645433",
-        phone: "0526665551",
-        date: "13.8.17",
-        totalPrice: 25,
-        statusName: "מוכן",
-        products: [
-          {
-            id: 2,
-            name: "בלוק עץ ריבוע",
-            size: "15x15",
-            quntityOfImages: "1",
-            price:"25",
-            image: "/img/product2.jpg",
-          }
-        ],
-      },
-      {
-        orderId:4,
-        userId:2,
-        firstName:"יעקוב",
-        lastName: "קאסה",
-        email:"yakov@gmail.com",
-        address: "רמת גן, הרקפת 20",
-        zip: "00645433",
-        phone: "0526665551",
-        date: "9.10.20",
-        totalPrice: 80,
-        statusName: "נשלח",
-        products: [
-          {
-            id: 1,
-            name: "בלוק עץ ריבוע",
-            size: "10x10",
-            quntityOfImages: "1",
-            price:"15",
-            image: "/img/product1.jpg",
-          },
-          {
-            id: 2,
-            name: "בלוק עץ ריבוע",
-            size: "15x15",
-            quntityOfImages: "1",
-            price:"25",
-            image: "/img/product2.jpg",
-          },
-          {
-            id: 3,
-            name: "בלוק עץ ריבוע",
-            size: "20x20",
-            quntityOfImages: "1",
-            price:"40",
-            image: "/img/product3.png",
-          },
-        ],
-      }
-  ]
+    body: JSON.stringify([registerInputsDetails]),
+  })
+  return response.json()
+}
 
-
-const recommendations = [
-    {
-        id:1,
-        user:{
-            id:2,
-            firstName:"יעקוב",
-            lastName:"קאסה",
-        },
-        text:`שירות מצויין מחירים נוחים`
+async function toLogin(loginUserDetails) {
+  const response = await fetch(`${url}/users/login`, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json",
     },
-    {
-        id:2,
-        user:{
-            id:3,
-            firstName:"אלומה",
-            lastName:"סיון",
-        },
-        text:`חווית קנייה מצויינת ההזמנה הגיעה ממש מהר `
-    }
-
-]
-
-function addUserToDal(user) {
-  users.push({id:users.length+1,admin:false,...user})
-  console.log(users)
+    body: JSON.stringify([loginUserDetails]),
+  })
+  return response.json()
 }
 
-function isNotExist(newEmailUser) {
-  return new Promise((resolve, reject) => {
-    for (let i = 0; i < users.length; i++) {
-      if (users[i]["email"] === newEmailUser) {
-        reject(true);
-      }
-    }
-    resolve(false);
-  });
-}
-
-function isUserExist(loginUserDetails) {
-  return new Promise((resolve, reject) => {
-    for (let i = 0; i < users.length; i++) {
-      if (
-        loginUserDetails["email"] === users[i]["email"] &&
-        loginUserDetails["password"] === users[i]["password"]
-      ) {
-        resolve(users[i]);
-      }
-    }
-    reject(false);
-  });
-}
-
-function getProducts() {
-  return new Promise((resolve) => {
-    resolve(products);
-  });
-}
-
-function getProductById(id) {
-  return new Promise((resolve, reject) => {
-    for (let i = 0; i < products.length; i++) {
-      if (products[i]["id"] === Number(id)) {
-        resolve(products[i]);
-      }
-    }
-    reject({});
-  });
-}
-
-function sentNewOrder(newOrder){
-    orders.push({orderId:orders.length+1,...newOrder})
-    console.log(orders)
-}
-
-function getLastUserAddress(userId){
-    return new Promise((resolve, reject) =>{
-
-        const orderCompletionDetails = orders.map(order =>{
-            if(order.userId === userId){
-                return {address:order.address, zip:order.zip, phone:order.phone}
-            }
-        })
-        if(orderCompletionDetails.length!==0){
-            resolve(orderCompletionDetails[orderCompletionDetails.length-1])
-        } else{
-            reject()
-        }
-    })
+async function toUpdate(detialsUpdate, userId, userEmail) {
+  const response = await fetch(`${url}/users`, {
+    method: "PUT", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([detialsUpdate, userId, userEmail]),
+  })
+  return response.json()
 }
 
 
-function getOrdersByUser(userId){
-    return new Promise((resolve, reject)=>{
-        const orderOfUser = orders.filter(order=> order.userId === userId)
-        if(orderOfUser.length!==0){
-            resolve(orderOfUser)
-        } else {
-            reject([])
-        }
-    })
+
+
+// products
+
+async function getProducts(isAdmin) {
+  const data = await fetch(`${url}/products${isAdmin ? "/admin" : ""}`)
+  const products = await data.json()
+  return products
+}
+
+async function getProductById(id) {
+  const data = await fetch(`${url}/products/${id}`)
+  const product = await data.json()
+  return product
+}
+
+async function getCategorys() {
+  const data = await fetch(`${url}/categorys`)
+  const categorys = await data.json()
+  return categorys
+}
+
+async function addProdcut(product) {
+  const response = await fetch(`${url}/products`, {
+    method: "POST",
+    body: product
+  })
+  return response.json()
+}
+
+async function editDataProduct(product) {
+  const response = await fetch(`${url}/products`, {
+    method: "PUT",
+    body: product
+  })
+  return response.json()
+}
+
+async function deleteProduct(id, active) {
+  const response = await fetch(`${url}/products/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(active)
+  })
+  return response.json()
 }
 
 
-function getAllOrders(){
-    return new Promise((resolve)=>{
-       resolve(orders)
-    })
+
+
+
+// orders
+
+async function getOrdersByUser(userId) {
+  const data = await fetch(`${url}/orders/?ordersUser=${userId}`)
+  const ordersOfUser = await data.json()
+  return ordersOfUser
 }
 
-function setStatusOrder(orderId, statusOrder){
-    orders[orderId-1].statusName = statusOrder
+async function getAllOrders() {
+  const data = await fetch(`${url}/orders`)
+  const orders = await data.json()
+  return orders
 }
 
-function getStatusOrder(orderId){
-    return new Promise((resolve) =>{
-        const status = whichClassStatus(orders[orderId-1].statusName)
-        resolve(status)
-    })
+async function updateStatusOrder(orderId, statusId) {
+  const response = await fetch(`${url}/orders`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([orderId, statusId])
+  })
+  return response.json()
 }
 
-function whichClassStatus(status){
-    switch (status) {
-        case "ממתין":
-            status = "pending"
-            break;
-        case "בהכנה":
-            status = "inProgress"
-            break;
-        case "מוכן":
-            status = "ready"
-            break;
-        case "נשלח":
-            status = "sent"
-            break;
-    
-        default:
-            status="pending"
-            break;
-    }
-
-    return status
+async function getStatusOrder(orderId) {
+  const data = await fetch(`${url}/orders/?statusOrder=${orderId}`)
+  const status = await data.json()
+  return status
 }
 
-
-function UpdateDetailsUserDal(user){
-    users[user.id-1] = {...users[user.id-1], ...user}
-    console.log(users[user.id-1]);
-   
+async function sendOrder(orderCompletionDetails, userId, totalPrice, products) {
+  const response = await fetch(`${url}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([orderCompletionDetails, userId, totalPrice, products])
+  })
+  return response.json()
 }
 
-function addProdcut(product){
-    products.push({id:products.length+1,...product})
-    console.log(products);
+async function getLastUserAddress(userId) {
+  const data = await fetch(`${url}/orders/?userAddress=${userId}`)
+  const lastUserAddress = await data.json()
+  return lastUserAddress
 }
 
-
-function addRecommendation(newRecommendation){
-    recommendations.push({id:recommendations.length+1,...newRecommendation})
-    console.log(recommendations);
-}
-
-function getUsersRecommendations(){
-    return new Promise((resolve)=>{
-        resolve(recommendations)
-    })
+async function sendImages(images){
+  const response = await fetch(`${url}/images`, {
+    method: "POST",
+    body: images
+  })
+  return response.json()
 }
 
 
-export {addUserToDal, isNotExist, isUserExist, getProducts, getProductById,
-     sentNewOrder, getLastUserAddress, getOrdersByUser, getAllOrders,
-      setStatusOrder, getStatusOrder, UpdateDetailsUserDal, addProdcut,
-       addRecommendation, getUsersRecommendations}
+
+
+
+// recommendation
+
+async function getUsersRecommendations() {
+  const data = await fetch(`${url}/recommendations`)
+  const recommendations = await data.json()
+  return recommendations
+}
+
+async function addRecommendation(newRecommendation, userId) {
+  const response = await fetch(`${url}/recommendations`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([newRecommendation, userId]),
+  })
+  return response.json()
+}
+
+async function deleteRecommendation(userDetails, recommendationId) {
+  const response = await fetch(`${url}/recommendations`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([userDetails, recommendationId]),
+  })
+  return response.json()
+}
+
+export {
+  toLogin,
+  toRegister,
+  getProducts,
+  getProductById,
+  getCategorys,
+  sendOrder,
+  getLastUserAddress,
+  getOrdersByUser,
+  getAllOrders,
+  updateStatusOrder,
+  getStatusOrder,
+  sendImages,
+  toUpdate,
+  addProdcut,
+  editDataProduct,
+  addRecommendation,
+  getUsersRecommendations,
+  deleteRecommendation,
+  deleteProduct,
+}

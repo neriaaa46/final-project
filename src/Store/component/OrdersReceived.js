@@ -17,7 +17,6 @@ function OrderReceived(){
     async function getOrders(){
         try{
             const allOrders = await getAllOrders()
-            console.log(allOrders);
             setOrders(allOrders)
         }
         catch(error){
@@ -27,10 +26,10 @@ function OrderReceived(){
 
     return <>
         <Container className="mt-2">
-            <h1>הזמנות שהתקבלו :</h1>
+            <h1>הזמנות שהתקבלו</h1>
             
             {orders.map(order =>
-            <OrdersTable order={order}/>
+            <OrdersTable order = {order}/>
             )}
         </Container>
     </>

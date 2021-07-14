@@ -6,7 +6,7 @@ import validation from "../../function/validation"
 
 function Email(props){
     return <>
-        
+        <div>
         <InputGroup hasValidation>
             <InputGroup.Text><HiOutlineMail/></InputGroup.Text>
             <Form.Control type="email"
@@ -18,6 +18,7 @@ function Email(props){
                 {props.inputs["email"].errors.map((value,index)=>
                 {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </InputGroup>
+        </div>
     </>
 }
 

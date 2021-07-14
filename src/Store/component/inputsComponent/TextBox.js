@@ -3,6 +3,7 @@ import validation from "../../function/validation"
 
 function TextBox(props) {
     return <>
+        <div style={{height:"125px"}}>
         <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label className="mr-3">כתוב לנו</Form.Label>
             <Form.Control 
@@ -14,6 +15,7 @@ function TextBox(props) {
             {props.inputs["text"].errors.map((value,index)=>
             {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </Form.Group>
+        </div>
     </>
 }
 

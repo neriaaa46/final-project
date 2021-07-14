@@ -2,7 +2,7 @@ import {Container,Row,Button, Col} from "react-bootstrap"
 import {Link} from "react-router-dom"
 import { useState, useEffect } from "react"
 import validation from "../function/validation"
-import {sentNewOrder} from "../Dal/api"
+import {sendOrder} from "../Dal/api"
 import Address from "./inputsComponent/Address"
 import Zip from "./inputsComponent/Zip"
 import Phone from "./inputsComponent/Phone"
@@ -13,7 +13,7 @@ import {getLastUserAddress} from "../Dal/api"
 function OrderCompletion(){
 
 
-    const [ordeSentSuccessfully, setOrdeSentSuccessfully] = useState(false)
+    const [orderSendSuccessfully, setOrderSendSuccessfully] = useState(false)
     const [orderCompletionInputsDetails, setOrderCompletionInputsDetails] = useState({
         address: {
             value: '',
@@ -59,15 +59,15 @@ function OrderCompletion(){
                 orderCompletionInputsDetails[key].value = userDetails[key]
             }
             setOrderCompletionInputsDetails({...orderCompletionInputsDetails})
-
         }
-        catch{
-            
+        catch(error){
+            console.log(error.message)
         }
+        
     },[])
 
 
-    function sendNewOrder(){
+    async function sendNewOrder(){
         let isValid = true
         const orderCompletionDetails = {}
 
@@ -82,25 +82,32 @@ function OrderCompletion(){
         }
 
         if(isValid){ 
-            
-            const cartProducts = JSON.parse(localStorage.getItem("cart"))
 
-            const {id:userId,firstName,lastName,email} = JSON.parse(localStorage.getItem("user"))
-            const date = new Date().toLocaleDateString()
-            const statusName = "ממתין"
-            const totalPrice = cartProducts.reduce((sum,item) => sum + Number(item.price),0)
-            const products = cartProducts.map(({id, name, size, quntityOfImages, price, image}) => 
-            { return {id, name, size, quntityOfImages, price, image}})
+            const cart =  JSON.parse(localStorage.getItem("cart"))
+            const products = cart.map(product => {
+                return {productId: product.productId, images: product.imagesProduct}
+            })
 
-            const orderDetails = {userId, firstName, lastName, email, date, totalPrice, statusName, products,...orderCompletionDetails}
-                sentNewOrder(orderDetails)
-                setOrdeSentSuccessfully(true) 
+            const totalPrice = cart.reduce((sum,item) => sum + Number(item.price),0)
+            const {id:userId} = JSON.parse(localStorage.getItem("user"))
+
+            const {status, message, inputValidation} = await sendOrder(orderCompletionDetails, userId, totalPrice, products)
+            if(status === "ok"){
+                setOrderSendSuccessfully(true) 
+            } else{
+                
+                if(inputValidation){
+                    setOrderCompletionInputsDetails(inputValidation)
+                } else{
+                    console.log(message)
+                }
+            }
         }
     }
 
     return <>
     <Container>
-        <h1>סיום הזמנה :</h1>
+        <h1>סיום הזמנה</h1>
         <Row className="justify-content-center mt-5">
             <Col xs={12} md={7} className="mt-3">
                 <Address setInputs={setOrderCompletionInputsDetails} inputs={orderCompletionInputsDetails} address={orderCompletionInputsDetails.address.value}/>

@@ -5,6 +5,7 @@ import validation from "../../function/validation"
 
 function Phone(props){
 return <>
+    <div>
      <InputGroup hasValidation>
         <InputGroup.Text><FcPhoneAndroid/></InputGroup.Text>
         <Form.Control 
@@ -17,6 +18,7 @@ return <>
          {props.inputs["phone"].errors.map((value,index)=>
         {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
     </InputGroup>
+    </div>
 </>
 }
 

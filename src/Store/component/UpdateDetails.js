@@ -6,11 +6,12 @@ import Password from "./inputsComponent/Password"
 import ConfirmPassword from "./inputsComponent/ConfirmPassword"
 import FirstName from "./inputsComponent/FirstName"
 import LastName from "./inputsComponent/LastName"
-import {UpdateDetailsUserDal, isNotExist} from "../Dal/api"
+import {toUpdate} from "../Dal/api"
 
 function UpdateDetails(){
 
-    const[userExist,setUserExist] = useState(false)
+    const[isUpdate,setIsUpadate] = useState(false)
+    const[errorMessage,setErrorMessage] = useState("")
     const [updateInputsDetails, setUpdateInputsDetails] = useState({
         firstName: {
             value: '', 
@@ -86,53 +87,57 @@ function UpdateDetails(){
         }
 
         if(isValid){ 
-            try{
-                const notExist = await isNotExist(updateInputsDetails["email"].value)
-                 setUserExist(notExist)
-                 UpdateDetailsUserDal(user)
-             }
-             catch{
-                 setUserExist(true)
-                 setTimeout(() => {
-                    setUserExist(false)
-                }, 1500);
-             }
-           
+            
+            const {id, email} = JSON.parse(localStorage.getItem("user"))
+            const {status, message, inputValidation} = await toUpdate(user, id, email)
+            if(status === "ok"){
+                setIsUpadate(true)
+            } else {
+                if(inputValidation){
+                    setUpdateInputsDetails(inputValidation)
+                } else {
+                    setErrorMessage(message)
+                    setTimeout(() => {
+                        setErrorMessage("")
+                    }, 1500)
+                }
+            }                      
         }
     }
 
 
-
     return <>
-    <Container className="mt-5">
-        <h1 className="header-logIn">עדכן פרטים :</h1>
-        <Row className="justify-content-center mt-3">
+    <Container className="mt-2">
+        <h1 className="header-logIn">עדכן פרטים</h1>
+        <Row className="justify-content-center mt-5">
             <Col xs={12} md={5}>
                 <Container >
-                        <Col className="mt-5">
+                        <Col className="input">
                             <FirstName setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                         </Col>
-                        <Col className="mt-5">
+                        <Col className="input">
                             <LastName setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                         </Col>
-                        <Col className="mt-5">
+                        <Col className="input">
                             <Email setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
-                            {userExist&&<small className="text-danger">אימייל זה קיים במערכת !</small>}
+                            <small className="text-danger">{errorMessage}</small>
                         </Col>
                 </Container>
             </Col>
 
             <Col xs={12} md={5}>
                 <Container>
-                    <Col className="mt-5">
+                    <Col className="input">
                         <Password setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                     </Col>
-                    <Col className="mt-5">
+                    <Col className="input">
                         <ConfirmPassword setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                     </Col>
-                    <Col className="mt-5">
-                        <Container className="d-flex justify-content-center mt-5">
-                            <Button className="col-12 col-md-6 mt-3" variant="light" onClick={()=>updateDetailsUser()}>עדכן פרטים</Button>
+                    <Col>
+                        <Container className="d-flex justify-content-center mt-3 mb-4">
+                            <Button className="col-7 col-md-8 col-lg-5" 
+                            variant="light" 
+                            onClick={()=>updateDetailsUser()}>עדכן פרטים</Button>
                         </Container>
                     </Col>
                 </Container>

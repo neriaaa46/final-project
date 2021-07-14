@@ -3,7 +3,7 @@ import "../../css/carousel.css"
 
 
 function CarouselImages(){
-    return <Container className="carousel">
+    return <Container className="carousel-home-page">
                 <Carousel>
                 <Carousel.Item>
                     <img

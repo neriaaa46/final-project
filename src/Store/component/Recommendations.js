@@ -1,9 +1,9 @@
 import {Container,Button,Col,Row} from "react-bootstrap"
-import validation from "../function/validation"
-import {addRecommendation, getUsersRecommendations} from "../Dal/api"
-import TextBox from "./inputsComponent/TextBox"
 import { useState,useEffect } from "react"
-
+import {MdDelete} from "react-icons/md"
+import validation from "../function/validation"
+import {addRecommendation, getUsersRecommendations, deleteRecommendation} from "../Dal/api"
+import TextBox from "./inputsComponent/TextBox"
 
 function Recommendations(props){
 
@@ -13,11 +13,11 @@ function Recommendations(props){
             value: '',
             name:"טקסט",
             inValid:false,
-            appropriateError:"לפחות 10 תווים",
+            appropriateError:"לפחות 10 תווים חוקיים",
             errors:[], 
             validations:{
                 required: true, 
-                pattern:  /^[a-z\u0590-\u05fe]{10,}$/i 
+                pattern:  /^[!-+:/,? ^+=-a-z\u0590-\u05fe]{10,}$/i 
             }
         }
     })
@@ -26,18 +26,27 @@ function Recommendations(props){
         getRecommendations()
     },[])
 
+
     async function getRecommendations(){
         try{
             const allRecommendations = await getUsersRecommendations()
-            console.log(allRecommendations);
             setReommendations([...allRecommendations])
         }
-        catch{
-
+        catch(error){
+            console.log(error.message)
         }
     }
 
-    function addNewRecommendation(){
+    async function remove(recommendationId){
+        const userDetails = JSON.parse(localStorage.getItem("user"))
+        const {status, message} = await deleteRecommendation(userDetails, recommendationId)
+        if(status){
+            getRecommendations()
+        }
+    }
+
+
+    async function addNewRecommendation(){
         let isValid = true
         const newRecommendation = {}
 
@@ -52,36 +61,39 @@ function Recommendations(props){
         }
 
         if(isValid){ 
-            const {id,firstName,lastName} = JSON.parse(localStorage.getItem("user"))
-            addRecommendation({user:{id,firstName,lastName},...newRecommendation})
+            const {id} = JSON.parse(localStorage.getItem("user"))
+            const {status, message, inputValidation} = await addRecommendation(newRecommendation, id)
+            if(inputValidation){
+                setRecommendationsInputsDetails(inputValidation)
+            }
         }
 
     }
 
     return <>
     <Container className="mt-2">
-        <h1>המלצות שלנו :</h1>
+        <h1>המלצות שלנו</h1>
 
         <Row className="justify-content-center mt-5">
-            <Col xs={12} md={8}>
-                <ul className="recommendations">
-                    {recommendations.map(recommendation=>
-                    <li className="mb-2">
-                    {recommendation.user.firstName} {recommendation.user.lastName} - {recommendation.text}
-                    </li>)}     
+            <Col xs={12} md={10} lg={8} className="recommendations">
+                <ul>
+                    {recommendations.map((recommendation,index)=>
+                    <li key={index} className="mb-3">
+                         {recommendation.firstName} {recommendation.lastName} - {recommendation.text}
+                         {!!props.isAdmin&&<MdDelete onClick={()=>remove(recommendation.recommendationId)} className="mr-2 icon-card"/>}
+                    </li>)}  
                 </ul>
             </Col>
         </Row>
-       {props.isLogin&&<Row className="justify-content-center mt-5">
-            <Col xs={12} md={8}>
+       {!props.isLogin&&<Row className="justify-content-center mt-3">
+            <Col xs={12} md={9} lg ={7}>
                 <TextBox setInputs={setRecommendationsInputsDetails} inputs={recommendationsInputsDetails}/>
             </Col>
         </Row>}
 
-        {props.isLogin&&<Container className="d-flex justify-content-center mt-2">
-                <Button className="col-10 col-md-3" variant="light" onClick={()=>{addNewRecommendation()}}>הוסף המלצה</Button>
-        </Container>}
-              
+        {!props.isLogin&&<Container className="d-flex justify-content-center mt-5 mb-3">
+                <Button className="col-7 col-md-3 col-lg-2" variant="light" onClick={()=>{addNewRecommendation()}}>הוסף המלצה</Button>
+        </Container>} 
     </Container>
     </>
 }

@@ -1,7 +1,8 @@
-import {Navbar, Nav, NavDropdown, Badge, Row, InputGroup, Container} from "react-bootstrap"
+import {Navbar, Nav, NavDropdown, Badge} from "react-bootstrap"
 import {  FaShoppingCart } from "react-icons/fa"
 import {  BsFillPersonLinesFill } from "react-icons/bs"
 import {Link, useHistory} from "react-router-dom" 
+import "../css/product.css"
 
 function NavBar(props){
 
@@ -36,8 +37,8 @@ function NavBar(props){
                         {!props.isLogin&&<NavDropdown.Item as={Link} to="/login" className="link-nav">התחברות</NavDropdown.Item>}
                         {!props.isLogin&&<NavDropdown.Item as={Link} to="/register" className="link-nav">הרשמה</NavDropdown.Item>}
                         {!props.isAdmin&&props.isLogin&&<NavDropdown.Item as={Link} to="/orderHistory" className="link-nav">הזמנות שלי</NavDropdown.Item>}
-                        {props.isAdmin&&<NavDropdown.Item as={Link} to="/ordersReceived"className="link-nav">הזמנות שהתקבלו</NavDropdown.Item>}
-                        {props.isAdmin&&<NavDropdown.Item as={Link} to="/addproduct" className="link-nav">הוסף מוצר</NavDropdown.Item>}
+                        {!!props.isAdmin&&<NavDropdown.Item as={Link} to="/ordersReceived"className="link-nav">הזמנות שהתקבלו</NavDropdown.Item>}
+                        {!!props.isAdmin&&<NavDropdown.Item as={Link} to="/addproduct" className="link-nav">הוסף מוצר</NavDropdown.Item>}
                         {props.isLogin&&<NavDropdown.Item as={Link} to="/updateDetails" className="link-nav">עדכן פרטים</NavDropdown.Item>}
                         {props.isLogin&&<NavDropdown.Item onClick={()=>{logOut()}}>התנתק</NavDropdown.Item>}
                     </NavDropdown>

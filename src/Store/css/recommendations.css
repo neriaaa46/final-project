@@ -1,5 +1,10 @@
 .recommendations{
+    padding: 8px 0px;
     min-height: 100px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+.recommendations li{
+    max-width:98%;
+    word-break:break-word; 
 }

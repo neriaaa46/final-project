@@ -17,6 +17,7 @@ import OrderCompletion from "./component/OrderCompletion"
 import OrderHistory from "./component/OrderHistory"
 import UpdateDetails from "./component/UpdateDetails"
 import OrdersReceived from "./component/OrdersReceived"
+import EditProduct from "./component/EditProduct"
 
 
 function App() { 
@@ -53,7 +54,7 @@ function App() {
                 </Route>
 
                 <Route exact path="/myProducts">
-                <MyProducts/>
+                <MyProducts isAdmin={isAdmin}/>
                 </Route>
 
                 <Route exact path="/cart">
@@ -62,7 +63,7 @@ function App() {
                 </Route> 
 
                 <Route exact path="/login">
-                <LogIn setIsAdmin={setIsAdmin} setIsLogin={setIsLogin} nextPath="/" />
+                <LogIn setIsAdmin={setIsAdmin} setIsLogin={setIsLogin} nextPath="/"/>
                 </Route> 
 
                 <Route exact path="/register">
@@ -74,19 +75,23 @@ function App() {
                 </Route> 
 
                 <Route exact path="/recommendations">
-                <Recommendations isLogin={isLogin}/>
+                <Recommendations isLogin={isLogin} isAdmin={isAdmin}/>
                 </Route> 
 
                 <Route exact path="/about">
-                <About />
+                <About/>
                 </Route> 
 
                 <Route exact path="/addproduct">
-                <AddProduct />
+                <AddProduct/>
+                </Route> 
+
+                <Route exact path="/editProduct/:productId">
+                <EditProduct/>
                 </Route> 
 
                 <Route path="/product/:id">
-                <Product numOfCartProducts={numOfCartProducts} setNummberOfCartProducts={setNummberOfCartProducts}/>
+                <Product numOfCartProducts={numOfCartProducts} setNummberOfCartProducts={setNummberOfCartProducts} isAdmin = {isAdmin}/>
                 </Route> 
 
                 <Route exact path="/orderCompletion">

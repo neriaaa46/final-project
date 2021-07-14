@@ -6,7 +6,7 @@ import validation from "../../function/validation"
 
 function Password(props){
     return <>
-        
+        <div>
         <InputGroup hasValidation>
             <InputGroup.Text><RiLockPasswordFill/></InputGroup.Text>
             <Form.Control 
@@ -18,6 +18,7 @@ function Password(props){
             {props.inputs["password"].errors.map((value,index)=>
             {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </InputGroup>
+        </div>
     </>
 }
 

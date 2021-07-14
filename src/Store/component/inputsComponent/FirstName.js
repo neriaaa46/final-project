@@ -5,6 +5,7 @@ import validation from "../../function/validation"
 
 function FirstName(props){
 return <>
+    <div>
      <InputGroup hasValidation>
         <InputGroup.Text><BsPersonCheck/></InputGroup.Text>
         <Form.Control 
@@ -16,6 +17,7 @@ return <>
         {props.inputs["firstName"].errors.map((value,index)=>
         {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
     </InputGroup>
+    </div>
 </>
 }
 

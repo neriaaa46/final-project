@@ -1,7 +1,8 @@
 import {Container,Row,Col,Button} from "react-bootstrap"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams } from "react-router"
 import validation from "../function/validation"
-import { addProdcut } from "../Dal/api"
+import { editDataProduct ,getProductById} from "../Dal/api"
 import NameProduct from "./addProductComponent/NameProduct"
 import ImageProduct from "./addProductComponent/ImageProduct"
 import NumOfImages from "./addProductComponent/NumOfImages"
@@ -11,9 +12,10 @@ import TextProduct from "./addProductComponent/TextProduct"
 import Category from "./addProductComponent/Category"
 
 
-function AddProduct(){
+function EditProduct(){
 
-    const [newProduct, setNewProduct] = useState({
+    const {productId} = useParams()
+    const [editProduct, setEditProduct] = useState({
         name: {
             value: '', 
             name:"שם מוצר",
@@ -80,39 +82,63 @@ function AddProduct(){
             inValid:false,
             errors:[], 
             validations:{
-                required: true, 
+                required: false, 
                 pattern: false  
             }
         }
     })
 
+    useEffect(() => { 
+        getProduct()
+    },[])
 
-    async function addNewProduct(){
+    async function getProduct(){
+        try{
+            const prodcutDetails = await getProductById(productId)
+            for (const key in editProduct) {
+                if(key !== "image"){
+                    editProduct[key].value = prodcutDetails[key]
+                }
+            }
+            setEditProduct({...editProduct})
+            console.log(editProduct);
+
+        }
+        catch(error){
+            console.log(error.message)
+        }
+    }
+
+
+    async function edit(){
         let isValid = true
         const product = {}
 
-       for (const key in newProduct) {
+       for (const key in editProduct) {
 
-            product[key] = newProduct[key].value
+            product[key] = editProduct[key].value
 
-            setNewProduct(validation({value:newProduct[key].value, name:key}, newProduct))
-            if (newProduct[key].errors.length !==0){
+            setEditProduct(validation({value:editProduct[key].value, name:key}, editProduct))
+            if (editProduct[key].errors.length !==0){
                 isValid = false
             }
         }
 
         if(isValid){ 
-           
+          
             const product = new FormData()
-            product.append('name', newProduct.name.value)
-            product.append('categoryId', newProduct.categoryId.value)
-            product.append('size', newProduct.size.value)
-            product.append('description', newProduct.description.value)
-            product.append('price', newProduct.price.value)
-            product.append('quantityImages', newProduct.quantityImages.value)
-            product.append('product', newProduct.image.value)
+            product.append('name', editProduct.name.value)
+            product.append('categoryId', editProduct.categoryId.value)
+            product.append('size', editProduct.size.value)
+            product.append('description', editProduct.description.value)
+            product.append('price', editProduct.price.value)
+            product.append('quantityImages', editProduct.quantityImages.value)
+            product.append('productId',productId)
+            if(editProduct.image.value){
+                product.append('product',editProduct.image.value)
+            }
             
-            const {status, message} = await addProdcut(product)
+            const {status, message} = await editDataProduct(product)
             if(status==="ok"){
                 console.log(status)
             } else{
@@ -124,45 +150,45 @@ function AddProduct(){
 
     return <>
     <Container>
-        <h1>הוספת מוצר</h1>
-            
+        <h1>ערוך מוצר</h1>
+
             <Row className="justify-content-center mt-3">
                 <Col xs={10} md={6} lg={4}>
                     <Col className="input">
-                        <NameProduct product={newProduct} setProduct={setNewProduct}/>
+                        <NameProduct product={editProduct} setProduct={setEditProduct} name={editProduct.name.value}/>
                     </Col>
                     <Col className="input">
-                        <PriceProduct product={newProduct} setProduct={setNewProduct}/>
+                        <PriceProduct product={editProduct} setProduct={setEditProduct} price={editProduct.price.value}/>
                     </Col>
                     <Col className="input">
-                        <Category product={newProduct} setProduct={setNewProduct}/>
+                        <Category product={editProduct} setProduct={setEditProduct} categoryId={editProduct.categoryId.value}/>
                     </Col>
                 </Col>
 
                 <Col xs={10} md={6} lg={4}> 
                     <Col className="input">
-                        <NumOfImages product={newProduct} setProduct={setNewProduct}/>
+                        <NumOfImages product={editProduct} setProduct={setEditProduct} quantityImages={editProduct.quantityImages.value}/>
                     </Col>
                     <Col className="input">
-                        <SizeOfImagesProduct product={newProduct} setProduct={setNewProduct}/>
+                        <SizeOfImagesProduct product={editProduct} setProduct={setEditProduct} size={editProduct.size.value}/>
                     </Col>
-                    <Col xs={10} className="input">
-                        <ImageProduct product={newProduct} setProduct={setNewProduct}/>
+                    <Col xs={10}>
+                        <ImageProduct product={editProduct} setProduct={setEditProduct}/>
                     </Col>
                 </Col>
             </Row>   
 
             <Row className="justify-content-center">
                 <Col xs={10} md={8}>
-                    <TextProduct product={newProduct} setProduct={setNewProduct}/>
+                    <TextProduct product={editProduct} setProduct={setEditProduct} description={editProduct.description.value}/>
                 </Col>
             </Row>           
             <Row className="justify-content-center mt-4 mb-3">
-                <Button variant="light" className="col-4 col-md-2" onClick={()=>addNewProduct()}>הוסף מוצר</Button>
+                <Button variant="light" className="col-4 col-md-2" onClick={()=>edit()}>ערוך מוצר</Button>
             </Row>
               
     </Container>
     </>
 }
 
-export default AddProduct
+export default EditProduct

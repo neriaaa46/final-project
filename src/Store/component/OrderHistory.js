@@ -1,6 +1,7 @@
 import {Container,Table,Row,Col,Accordion,Card,Button} from "react-bootstrap"
 import {useEffect, useState} from "react"
 import "../css/product.css"
+import {pathImages} from "../Dal/api"
 import {getOrdersByUser} from "../Dal/api"
 
 function OrderHistory(){
@@ -17,7 +18,8 @@ function OrderHistory(){
             const userOrders = await getOrdersByUser(userId)
             setMyOrders(userOrders)
         }
-        catch{
+        catch(error){
+            console.log(error.message)
             setMyOrders([])
         }
     }
@@ -25,9 +27,8 @@ function OrderHistory(){
     return <>
     <Container className="mt-2">
         <h1>מוצרים שהזמנתי</h1>
-
-        {!myOrders&&<div className="order-summary text-center mt-5">
-            <h3>לא קיים הזמנות</h3>
+        {(myOrders.length===0)&&<div className="order-summary text-center mt-5">
+            <h3>לא קיימות הזמנות</h3>
         </div>}
 
         {myOrders.map(order => 
@@ -45,7 +46,7 @@ function OrderHistory(){
                         <tbody>
                             <tr>
                                 <td>{order.orderId}</td>
-                                <td>{order.date}</td>
+                                <td>{order.date.slice(0,9)}</td>
                                 <td>{order.address}</td>
                                 <td>{order.zip}</td>
                             </tr>
@@ -75,7 +76,7 @@ function OrderHistory(){
                                                 <tr>
                                                     <td>{product.name}</td>
                                                     <td>{product.size}</td>
-                                                    <td><img src={product.image} style={{width:"80px"}}></img></td>
+                                                    <td><img src={`${pathImages}${product.image}`} style={{width:"80px"}}></img></td>
                                                     <td>{product.price} &#8362;</td>
                                                 </tr>)}
                                             </tbody>

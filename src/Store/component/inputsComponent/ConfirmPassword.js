@@ -6,7 +6,7 @@ import validation from "../../function/validation"
 
 function ConfirmPassword(props){
     return <>
-        
+        <div>
         <InputGroup hasValidation className="inputs">
             <InputGroup.Text><GiConfirmed/></InputGroup.Text>
             <Form.Control 
@@ -18,6 +18,7 @@ function ConfirmPassword(props){
             {props.inputs["confirmPassword"].errors.map((value,index)=>
             {return <Form.Control.Feedback key={index} type="invalid"> {value} </Form.Control.Feedback>})}
         </InputGroup>
+        </div>
     </>
 }
 

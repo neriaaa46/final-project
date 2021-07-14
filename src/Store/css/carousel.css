@@ -1,10 +1,21 @@
-
-.carousel{
-    margin-top: 60px;
-    max-width: 550px;
-    margin-bottom: 40px;
+.carousel-home-page {
+  margin-top: 60px;
+  max-width: 550px;
+  margin-bottom: 40px;
+}
+.cart-image{
+  width: 80px;
+}
+.d-block {
+  max-height: 300px;
 }
 
-.d-block{
-    max-height: 300px;
+.modal-body-images{
+  padding: 0px;
+  border: 0px;
+  background-color: rgba(218, 197, 218, 0);
+}
+.modal-content{
+  background-color: rgba(255, 255, 255, 0) ;
+  border: 0px;
 }

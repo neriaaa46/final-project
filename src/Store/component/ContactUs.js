@@ -61,7 +61,7 @@ function ContactUs(){
             value: '',
             name:"נושא פנייה",
             inValid:false,
-            appropriateError:"לפחות 10 תווים",
+            appropriateError:false,
             errors:[], 
             validations:{
                 required: true, 
@@ -72,11 +72,11 @@ function ContactUs(){
             value: '',
             name:"טקסט",
             inValid:false,
-            appropriateError:"לפחות 10 תווים",
+            appropriateError:"לפחות 10 תווים חוקיים",
             errors:[], 
             validations:{
                 required: true, 
-                pattern:  /^[a-z\u0590-\u05fe]{10,}$/i 
+                pattern:  /^[!-+:/,? ^+=-a-z\u0590-\u05fe]{10,}$/i 
             }
         }
     })
@@ -85,38 +85,38 @@ function ContactUs(){
     return <>
     <Container>
 
-        <h1>צור קשר :</h1>
+        <h1>צור קשר</h1>
 
-        <Row className="justify-content-center mt-3">
-            <Col xs={12} md={5}>
+        <Row className="justify-content-center mt-5">
+            <Col xs={12} md={8} lg={5}>
                 <Container >
-                        <Col className="mt-4">
+                        <Col className="input">
                             <FirstName setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                         </Col>
-                        <Col className="mt-4">
+                        <Col  className="input">
                             <LastName setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                         </Col>
-                        <Col className="mt-4">
+                        <Col  className="input">
                             <Email setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                         </Col>
-                        <Col className="mt-4">
+                        <Col  className="input">
                             <Phone setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                         </Col>
                 </Container>
             </Col>
 
-            <Col xs={12} md={5}>
+            <Col xs={12} md={8} lg={5}>
                 <Container>
-                    <Col className="mt-4">
+                    <Col  className="input">
                         <Subject setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                     </Col>
-                    <Col className="mt-3">
+                    <Col >
                         <TextBox setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                     </Col>
                 </Container>
                
                 <Container className="d-flex justify-content-center mt-5">
-                    <Button className="col-10 col-md-6 mb-5" variant="light">שלח פנייה</Button>
+                    <Button className="col-6 col-md-6 mt-2" variant="light">שלח פנייה</Button>
                 </Container>
                 
             </Col>

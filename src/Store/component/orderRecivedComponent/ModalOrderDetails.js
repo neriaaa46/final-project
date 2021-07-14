@@ -1,5 +1,6 @@
 import {Container,Row,Table,Modal,Card,ListGroup,Col} from "react-bootstrap"
-
+import {pathOrdersImage} from "../../Dal/api"
+import {pathOrdersDataBase} from "../../Dal/api"
 
 function ModalOrdersDetails(props){
     return <>
@@ -18,10 +19,10 @@ function ModalOrdersDetails(props){
                                 <h6>מספר הזמנה : {props.order.orderId}</h6>
                             </Col>
                             <Col  xs={12} lg={4}>
-                                <h6>תאריך : {props.order.date}</h6>
+                                <h6>תאריך : {props.order.date.slice(0,9)}</h6>
                             </Col>
                             <Col  xs={12} lg={4}>
-                                <h6>סטאטוס : {props.order.statusName}</h6>
+                                <h6>סטאטוס : {props.order.status}</h6>
                             </Col>
                         </Row>
                         
@@ -60,7 +61,9 @@ function ModalOrdersDetails(props){
                                 <td>{index+1}</td>
                                 <td>{product.name}</td>
                                 <td>{product.size}</td>
-                                <td>www.images.com</td>
+                                <td>{product.imagesProduct.map((image, index)=>{
+                                    return <a key={index} href={`${pathOrdersDataBase}${image}`}>img{index+1} </a>
+                                })}</td>
                                 </tr>
                             </tbody>)}
                             </Table>

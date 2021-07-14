@@ -1,6 +1,7 @@
 
 
 function validation({value,name},inputsDetails){
+
     const newErrors = []
     let inValid = false
     const {validations} = inputsDetails[name]
@@ -20,8 +21,6 @@ function validation({value,name},inputsDetails){
         inValid = true
     }
     
-    
-   
     inputsDetails[name].inValid = inValid
     inputsDetails[name].value = value
     inputsDetails[name].errors = newErrors
