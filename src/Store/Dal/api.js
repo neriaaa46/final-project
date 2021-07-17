@@ -155,8 +155,9 @@ async function sendImages(images){
 
 // recommendation
 
-async function getUsersRecommendations() {
-  const data = await fetch(`${url}/recommendations`)
+async function getUsersRecommendations(isAdmin) {
+  console.log(isAdmin, isAdmin);
+  const data = await fetch(`${url}/recommendations${isAdmin ? "/admin" : ""}`)
   const recommendations = await data.json()
   return recommendations
 }
@@ -183,6 +184,30 @@ async function deleteRecommendation(userDetails, recommendationId) {
   return response.json()
 }
 
+async function changeActiveRecommendation(recommendationId, active){
+  const response = await fetch(`${url}/recommendations`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([recommendationId, active])
+  })
+  return response.json()
+}
+
+
+
+async function sendEmail(user, cart){
+  const response = await fetch(`${url}/email` , {
+    method: "POST",
+    headers:{
+      "Content-Type": "application/json"
+    }, 
+    body: JSON.stringify([user, cart])
+  })
+  return response.json()
+}
+
 export {
   toLogin,
   toRegister,
@@ -202,5 +227,7 @@ export {
   addRecommendation,
   getUsersRecommendations,
   deleteRecommendation,
+  changeActiveRecommendation,
   deleteProduct,
+  sendEmail
 }

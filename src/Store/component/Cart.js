@@ -13,8 +13,8 @@ import {pathImages} from "../Dal/api"
 
 function Cart(props){
 
-    const [cartProduct, setCartProduct] = useState([]) 
-    const [CartPrice, setCartPrice] = useState(0)
+    // const [cartProduct, setCartProduct] = useState([]) 
+    // const [CartPrice, setCartPrice] = useState(0)
     const history = useHistory()
     const [showModal, setShowModal] = useState(false)
     const [showModalImages, setShowModalImages] = useState(false)
@@ -38,8 +38,8 @@ function Cart(props){
 
     useEffect(()=>{
         if(localStorage.getItem("cart")){
-            setCartProduct(JSON.parse(localStorage.getItem("cart")))
-            setCartPrice(JSON.parse(localStorage.getItem("cart")).reduce((sum,item) => sum + Number(item.price),0))
+            props.setCartProduct(JSON.parse(localStorage.getItem("cart")))
+            props.setCartPrice(JSON.parse(localStorage.getItem("cart")).reduce((sum,item) => sum + Number(item.price),0))
             props.setNummberOfCartProducts(JSON.parse(localStorage.getItem("cart")).length)
         }
         
@@ -49,17 +49,11 @@ function Cart(props){
         let cart = JSON.parse(localStorage.getItem("cart"))
         cart = cart.filter((item, index) => index !== indexProductCart)
         localStorage.setItem("cart",JSON.stringify(cart))
-        setCartProduct(cart)
+        props.setCartProduct(cart)
         props.setNummberOfCartProducts(props.numOfCartProducts-1)
-        setCartPrice(JSON.parse(localStorage.getItem("cart")).reduce((sum,item) => sum + Number(item.price),0))
+        props.setCartPrice(JSON.parse(localStorage.getItem("cart")).reduce((sum,item) => sum + Number(item.price),0))
     }
 
-    function clearCart(){
-        localStorage.removeItem("cart")
-        setCartProduct([])
-        setCartPrice(0)
-        props.setNummberOfCartProducts(0)
-    }
 
     function checkRegister(){
         if(props.isLogin){
@@ -84,10 +78,10 @@ return <>
     <div className="order-summary text-center mb-4">
          {!!props.numOfCartProducts&&<div>
                 <h3 className="mb-4">סיכום הזמנה:</h3>
-                <h5 className="mb-2"> מחיר הזמנה כולל - {CartPrice} &#8362;</h5>
+                <h5 className="mb-2"> מחיר הזמנה כולל - {props.cartPrice} &#8362;</h5>
                 <h5 className="mb-4">מספר מוצרים כולל - {props.numOfCartProducts}</h5>
                 <Button variant="light" className="ml-2" onClick={()=>checkRegister()}>בצע הזמנה</Button>
-                <Button variant="light" onClick={()=>clearCart()}>נקה את הסל</Button>
+                <Button variant="light" onClick={()=>props.clearCart()}>נקה את הסל</Button>
             </div>}
           {!props.numOfCartProducts&&<div>
                 <h2>הסל ריק</h2>
@@ -108,7 +102,7 @@ return <>
         </tr>
         </thead>
         <tbody>
-            {cartProduct && cartProduct.map((item,index) => 
+            {props.cartProduct && props.cartProduct.map((item,index) => 
                 <tr key={index}>
                     <td>{index+1}</td>
                     <td>{item["name"]}</td>

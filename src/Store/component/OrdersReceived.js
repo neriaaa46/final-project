@@ -27,7 +27,9 @@ function OrderReceived(){
     return <>
         <Container className="mt-2">
             <h1>הזמנות שהתקבלו</h1>
-            
+            {(orders.length===0)&&<div className="order-summary text-center mt-5">
+            <h3>לא קיימות הזמנות</h3>
+            </div>}
             {orders.map(order =>
             <OrdersTable order = {order}/>
             )}

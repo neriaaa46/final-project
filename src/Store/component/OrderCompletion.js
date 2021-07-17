@@ -6,14 +6,18 @@ import {sendOrder} from "../Dal/api"
 import Address from "./inputsComponent/Address"
 import Zip from "./inputsComponent/Zip"
 import Phone from "./inputsComponent/Phone"
-import {getLastUserAddress} from "../Dal/api"
+import ModalMessage from "./ModalMessage"
+import {getLastUserAddress, sendEmail} from "../Dal/api"
 
 
 
-function OrderCompletion(){
+function OrderCompletion(props){
 
 
-    const [orderSendSuccessfully, setOrderSendSuccessfully] = useState(false)
+    const [smShow, setSmShow] = useState(false);
+    const [textModal, setTextModal] = useState("");
+    const [numOrder, setNumOrder] = useState("");
+    const [headerModal, setHeaderModal] = useState("");
     const [orderCompletionInputsDetails, setOrderCompletionInputsDetails] = useState({
         address: {
             value: '',
@@ -91,9 +95,19 @@ function OrderCompletion(){
             const totalPrice = cart.reduce((sum,item) => sum + Number(item.price),0)
             const {id:userId} = JSON.parse(localStorage.getItem("user"))
 
-            const {status, message, inputValidation} = await sendOrder(orderCompletionDetails, userId, totalPrice, products)
+            const {status, message, inputValidation, orderId} = await sendOrder(orderCompletionDetails, userId, totalPrice, products)
             if(status === "ok"){
-                setOrderSendSuccessfully(true) 
+                setHeaderModal("ההזמנה בוצעה בהצלחה")
+                setNumOrder(`הזמנה מספר: ${orderId}`)
+                const cart = JSON.parse(localStorage.getItem("cart"))
+                const user = JSON.parse(localStorage.getItem("user"))
+                props.clearCart()
+                const {statusMail, message} = await sendEmail(user, cart)
+                if(statusMail==="ok"){
+                    setTextModal(message)
+                }
+                setSmShow(true)
+
             } else{
                 
                 if(inputValidation){
@@ -107,6 +121,8 @@ function OrderCompletion(){
 
     return <>
     <Container>
+        <ModalMessage smShow ={smShow} setSmShow={setSmShow} textModal={textModal} headerModal={headerModal} numOrder={numOrder}/>
+
         <h1>סיום הזמנה</h1>
         <Row className="justify-content-center mt-5">
             <Col xs={12} md={7} className="mt-3">

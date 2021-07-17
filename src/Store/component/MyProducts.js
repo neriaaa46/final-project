@@ -2,9 +2,9 @@ import {Card,Container,Row,Col} from "react-bootstrap"
 import "../css/product.css"
 import { useHistory } from "react-router-dom"
 import {useState,useEffect} from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import {FaEdit} from "react-icons/fa"
-import {HiOutlineFolderAdd} from "react-icons/hi"
-import {HiOutlineFolderRemove} from "react-icons/hi"
 import {pathImages, deleteProduct, getProducts} from "../Dal/api"
 
 
@@ -21,7 +21,12 @@ function MyProducts(props){
     
     async function getAllProducts(){
         try{
-            let newArrayProducts = await getProducts(props.isAdmin)
+            let isAdmin = false
+            if(localStorage.getItem("user")){
+                const {admin} = JSON.parse(localStorage.getItem("user"))
+                isAdmin = admin
+            }
+            let newArrayProducts = await getProducts(isAdmin)
             setProducts([...newArrayProducts])
         }
         catch(error){
@@ -49,15 +54,15 @@ function MyProducts(props){
                         </div>
                         <Card.Body>
                             <h6 className="text-center">
-                                גודל - {product.size}
+                                גודל - {product.size} ס"מ
                             </h6>
                             <h5 className="text-center">
                             מחיר - {product.price} &#8362;
                             </h5>
                         </Card.Body>
                             {!!props.isAdmin&&<Row className="justify-content-center">
-                            {!product.active&&<HiOutlineFolderAdd size={25} className="ml-1 icon-card" onClick={()=>changeActive(product.productId, product.active)}/>}
-                            {!!product.active&&<HiOutlineFolderRemove size={25} className="ml-1 icon-card" onClick={()=>changeActive(product.productId, product.active)}/>}
+                            {!product.active&&<FontAwesomeIcon icon={faEye} size={"lg"} className="ml-1 icon-card" onClick={()=>changeActive(product.productId, product.active)}/>}
+                            {!!product.active&&<FontAwesomeIcon icon={faEyeSlash} size={"lg"} className="ml-1 icon-card" onClick={()=>changeActive(product.productId, product.active)}/>}
                             <FaEdit size={22} className="icon-card" onClick={()=>{history.push(`/editProduct/${product.productId}`)}}/>
                         </Row>}
                      </Card>

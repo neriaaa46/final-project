@@ -87,7 +87,7 @@ return <>
 
             <Col xs={12} md={6}>
                 <h3 className="mb-2">שם המוצר : {product.name}</h3>
-                <h5 className="mb-4">גודל המוצר : {product.size}</h5>
+                <h5 className="mb-4">גודל המוצר : {product.size} ס"מ</h5>
                 <p className="description mb-4">{product.description}</p>
 
                 <Form.Group controlId="formFileMultiple" className="input">

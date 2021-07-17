@@ -22,9 +22,13 @@ import EditProduct from "./component/EditProduct"
 
 function App() { 
 
+    const [cartProduct, setCartProduct] = useState([]) 
+    const [cartPrice, setCartPrice] = useState(0)
     const [isLogin,setIsLogin] = useState(false)
     const [isAdmin,setIsAdmin] = useState(false)
     const [numOfCartProducts, setNumOfCartProducts] = useState(0)
+    
+
 
     useEffect(()=>{
         if(localStorage.getItem("cart")){
@@ -38,10 +42,20 @@ function App() {
         }
     },[])
 
+    function clearCart(){
+        localStorage.removeItem("cart")
+        setCartProduct([])
+        setCartPrice(0)
+        setNummberOfCartProducts(0)
+    }
+
 
      function setNummberOfCartProducts(value){
         setNumOfCartProducts(value)
      }
+
+
+
 
     return (
         <Router>
@@ -54,12 +68,13 @@ function App() {
                 </Route>
 
                 <Route exact path="/myProducts">
-                <MyProducts isAdmin={isAdmin}/>
+                <MyProducts isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
                 </Route>
 
                 <Route exact path="/cart">
                 <Cart numOfCartProducts={numOfCartProducts} setNummberOfCartProducts={setNummberOfCartProducts}
-                 isLogin={isLogin} setIsAdmin={setIsAdmin} setIsLogin={setIsLogin}/>
+                 isLogin={isLogin} setIsAdmin={setIsAdmin} setIsLogin={setIsLogin} clearCart={clearCart}
+                 cartProduct={cartProduct} setCartProduct={setCartProduct} cartPrice={cartPrice} setCartPrice={setCartPrice}/>
                 </Route> 
 
                 <Route exact path="/login">
@@ -75,7 +90,7 @@ function App() {
                 </Route> 
 
                 <Route exact path="/recommendations">
-                <Recommendations isLogin={isLogin} isAdmin={isAdmin}/>
+                <Recommendations isAdmin={isAdmin} isLogin={isLogin} setIsAdmin={setIsAdmin}/>
                 </Route> 
 
                 <Route exact path="/about">
@@ -95,7 +110,7 @@ function App() {
                 </Route> 
 
                 <Route exact path="/orderCompletion">
-                <OrderCompletion/>
+                <OrderCompletion clearCart={clearCart}/>
                 </Route> 
 
                 <Route exact path="/orderHistory">
