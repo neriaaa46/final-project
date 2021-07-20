@@ -1,14 +1,21 @@
 import {Container,Table,Row,Col,Accordion,Card,Button} from "react-bootstrap"
 import {useEffect, useState} from "react"
+import { useHistory } from "react-router"
 import "../css/product.css"
 import {pathImages} from "../Dal/api"
 import {getOrdersByUser} from "../Dal/api"
 
 function OrderHistory(){
 
+    const history = useHistory()
+
     const [myOrders, setMyOrders] = useState([])
     useEffect(() => { 
-        getMyOrders()
+        if(!localStorage.getItem("user")){
+            history.push("/")
+        } else{
+            getMyOrders()
+        }
     },[])
 
     

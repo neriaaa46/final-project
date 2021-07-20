@@ -1,17 +1,21 @@
-import {Container,Button,Col,Row} from "react-bootstrap"
+import {Container,Button,Col,Row,Alert} from "react-bootstrap"
+import validation from "../function/validation"
 import "../css/recommendations.css"
 import { useState } from "react"
+import { useHistory } from "react-router"
 import FirstName from "./inputsComponent/FirstName"
 import LastName from "./inputsComponent/LastName"
 import Email from "./inputsComponent/Email"
 import Phone from "./inputsComponent/Phone"
 import Subject from "./inputsComponent/Subject"
 import TextBox from "./inputsComponent/TextBox"
-
+import {contactUs} from "../Dal/api"
 
 
 function ContactUs(){
     
+    const history = useHistory()
+    const [sentRequest, setSentRequest] = useState("")
     const [contactUsInputsDetails, setContactUsInputsDetails] = useState({
         firstName: {
             value: '', 
@@ -21,7 +25,7 @@ function ContactUs(){
             errors: [], 
             validations: {
                 required: true, 
-                pattern: /^[a-z\u0590-\u05fe]+$/i
+                pattern: /^[a-z \u0590-\u05fe]+$/i
             }
         }, 
         lastName: {
@@ -32,7 +36,7 @@ function ContactUs(){
             errors:[], 
             validations:{
                 required: true, 
-                pattern: /^[a-z\u0590-\u05fe]+$/i
+                pattern: /^[a-z \u0590-\u05fe]+$/i
             }
         },
         email: {
@@ -76,10 +80,39 @@ function ContactUs(){
             errors:[], 
             validations:{
                 required: true, 
-                pattern:  /^[!-+:/,? ^+=-a-z\u0590-\u05fe]{10,}$/i 
+                pattern:  /^[!-+:/,.? ^+-=0-9\a-z\u0590-\u05fe]{10,}$/i 
             }
         }
     })
+
+    async function sendRequest(){
+        let isValid = true
+        const contactUsDetails = {}
+
+       for (const key in contactUsInputsDetails) {
+
+        contactUsDetails[key] = contactUsInputsDetails[key].value
+
+        setContactUsInputsDetails(validation({value:contactUsInputsDetails[key].value, name:key},contactUsInputsDetails))
+            if (contactUsInputsDetails[key].errors.length !==0){
+                isValid = false
+            }
+        }
+        if(isValid){ 
+
+            const {status, message, inputValidation} = await contactUs(contactUsDetails)
+            if(status === "ok"){
+                setSentRequest(message)
+                setTimeout(() => {
+                    setSentRequest("")
+                    history.push("/")
+                }, 2000)
+
+            } else if(inputValidation) {
+                    setContactUsInputsDetails(inputValidation)    
+            }
+        }
+    }
 
 
     return <>
@@ -114,9 +147,11 @@ function ContactUs(){
                         <TextBox setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                     </Col>
                 </Container>
-               
-                <Container className="d-flex justify-content-center mt-5">
-                    <Button className="col-6 col-md-6 mt-2" variant="light">שלח פנייה</Button>
+                <Row className="alert justify-content-center">
+                    {sentRequest &&<Alert className="alert-message" variant="dark">{sentRequest}</Alert>}
+                </Row>
+                <Container className="d-flex justify-content-center mb-3">
+                    <Button className="col-6 col-md-6 mt-2" variant="light" onClick={()=>sendRequest()}>שלח פנייה</Button>
                 </Container>
                 
             </Col>

@@ -1,6 +1,7 @@
 import {Container,Row,Button, Col} from "react-bootstrap"
 import {Link} from "react-router-dom"
 import { useState, useEffect } from "react"
+import { useHistory } from "react-router"
 import validation from "../function/validation"
 import {sendOrder} from "../Dal/api"
 import Address from "./inputsComponent/Address"
@@ -13,11 +14,13 @@ import {getLastUserAddress, sendEmail} from "../Dal/api"
 
 function OrderCompletion(props){
 
+    const history = useHistory()
 
-    const [smShow, setSmShow] = useState(false);
-    const [textModal, setTextModal] = useState("");
-    const [numOrder, setNumOrder] = useState("");
-    const [headerModal, setHeaderModal] = useState("");
+    const [smShow, setSmShow] = useState(false)
+    const [textModal, setTextModal] = useState("")
+    const [numOrder, setNumOrder] = useState("")
+    const [headerModal, setHeaderModal] = useState("")
+
     const [orderCompletionInputsDetails, setOrderCompletionInputsDetails] = useState({
         address: {
             value: '',
@@ -56,19 +59,39 @@ function OrderCompletion(props){
     })
 
     useEffect(async()=>{
-        const userId = JSON.parse(localStorage.getItem("user")).id
-        try{
-            const userDetails = await getLastUserAddress(userId)
-            for (const key in orderCompletionInputsDetails) {
-                orderCompletionInputsDetails[key].value = userDetails[key]
+
+        if(checkCartNotEmpty()){
+            const userId = JSON.parse(localStorage.getItem("user")).id
+            try{
+                const userDetails = await getLastUserAddress(userId)
+                for (const key in orderCompletionInputsDetails) {
+                    orderCompletionInputsDetails[key].value = userDetails[key]
+                }
+                setOrderCompletionInputsDetails({...orderCompletionInputsDetails})
             }
-            setOrderCompletionInputsDetails({...orderCompletionInputsDetails})
+            catch(error){
+                console.log(error.message)
+            }
         }
-        catch(error){
-            console.log(error.message)
-        }
+
+        
         
     },[])
+
+    function checkCartNotEmpty(){
+        if(localStorage.getItem("cart")){
+            if(JSON.parse(localStorage.getItem("cart")).length === 0){
+                history.push("/cart")
+                return false
+            } else {
+               
+                return true
+            }
+        } else {
+            history.push("/cart")
+            return false
+        }
+    }
 
 
     async function sendNewOrder(){
@@ -118,6 +141,8 @@ function OrderCompletion(props){
             }
         }
     }
+
+
 
     return <>
     <Container>

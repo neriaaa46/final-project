@@ -11,6 +11,7 @@ return <>
         <Form.Control 
         type="text" 
         name="firstName"
+        defaultValue = {props.inputs.firstName.value}
         isInvalid = {props.inputs["firstName"].inValid}
         placeholder="שם פרטי" 
         onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>

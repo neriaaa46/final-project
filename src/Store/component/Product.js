@@ -1,4 +1,4 @@
-import {Container,Row,Form,Button,Col} from "react-bootstrap"
+import {Container,Row,Form,Button,Col,Alert} from "react-bootstrap"
 import {Link, useParams} from "react-router-dom"
 import "../css/product.css"
 import {getProductById, sendImages, pathImages} from "../Dal/api"
@@ -95,11 +95,11 @@ return <>
                     <Form.Control type="file" multiple onChange={(e)=>addImages(e.target.files)}/>
                     <small className="text-danger">{numImagesMatching}</small>
                 </Form.Group> 
-
                 {!props.isAdmin&&<Row>
                     <Button className="ml-2  mb-2" variant="light" onClick={()=>addProductToLocalstorge()}>הוסף לסל שלי</Button>
-                    <Link to="/myProducts"><Button className="" variant="light">חזור למוצרים שלנו</Button></Link>
+                    <Link to="/myProducts"><Button variant="light">חזור למוצרים שלנו</Button></Link>
                 </Row>}
+                
             </Col>
         </Row>   
     </Container>

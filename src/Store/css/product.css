@@ -84,3 +84,22 @@
   border:rgb(0, 0, 0) solid 1px;
 }
 
+.alert{
+  height: 40px;
+}
+.alert-message{
+  width: 220px;
+  height: 28px;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+}
+
+
+.list-rec{
+  list-style: none;
+}
+.star{
+  color:rgb(248, 223, 109)
+}

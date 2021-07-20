@@ -2,6 +2,7 @@ import {Navbar, Nav, NavDropdown, Badge} from "react-bootstrap"
 import {  FaShoppingCart } from "react-icons/fa"
 import {  BsFillPersonLinesFill } from "react-icons/bs"
 import {Link, useHistory} from "react-router-dom" 
+import Cookies from "js-cookie"
 import "../css/product.css"
 
 function NavBar(props){
@@ -14,6 +15,8 @@ function NavBar(props){
         props.setIsAdmin(false)
         props.setNummberOfCartProducts(0)
         localStorage.clear()
+        Cookies.remove("user")
+        Cookies.remove("admin")
         history.push("/")
     }
 

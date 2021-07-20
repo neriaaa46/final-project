@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {Container,Button,Col} from "react-bootstrap"
 import {Link} from "react-router-dom"
 import "../css/logIn.css"
@@ -12,6 +12,11 @@ import Password from "./inputsComponent/Password"
 function LogIn(props){
 
     const history = useHistory()
+    useEffect(()=>{
+        if(localStorage.getItem("user")){
+            history.push("/")
+        }
+    },[])
 
     const [errorMessage,setErrorMessage] = useState("")
     const [loginInputsDetails, setLoginInputsDetails] = useState({
@@ -30,7 +35,7 @@ function LogIn(props){
             value: '',
             name:"סיסמא",
             inValid:false,
-            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            appropriateError:"לפחות 6 תווים עם אות (אנגלית) וספרה",
             errors:[], 
             validations:{
                 required: true, 

@@ -1,7 +1,8 @@
-import {Container,Button,Col,Row} from "react-bootstrap"
+import {Container,Button,Col,Row, Alert} from "react-bootstrap"
 import validation from "../function/validation"
 import {toRegister} from "../Dal/api"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useHistory } from "react-router"
 import Email from "./inputsComponent/Email"
 import Password from "./inputsComponent/Password"
 import ConfirmPassword from "./inputsComponent/ConfirmPassword"
@@ -11,7 +12,15 @@ import LastName from "./inputsComponent/LastName"
 
 function Register(){
 
-    const[isRegister,setIsRegister] = useState(false)
+    const history = useHistory()
+
+    useEffect(()=>{
+        if(localStorage.getItem("user")){
+            history.push("/")
+        }
+    },[])
+
+    const[isRegister,setIsRegister] = useState("")
     const[errorMessage,setErrorMessage] = useState("")
     const [registerInputsDetails, setRegisterInputsDetails] = useState({
         firstName: {
@@ -22,7 +31,7 @@ function Register(){
             errors: [], 
             validations: {
                 required: true, 
-                pattern: /^[a-z\u0590-\u05fe]+$/i
+                pattern: /^[a-z \u0590-\u05fe]+$/i
             }
         }, 
         lastName: {
@@ -33,7 +42,7 @@ function Register(){
             errors:[], 
             validations:{
                 required: true, 
-                pattern: /^[a-z\u0590-\u05fe]+$/i
+                pattern: /^[a-z \u0590-\u05fe]+$/i
             }
         },
         email: {
@@ -51,7 +60,7 @@ function Register(){
             value: '',
             name:"סיסמא",
             inValid:false,
-            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            appropriateError:"לפחות 6 תווים עם אות (אנגלית) וספרה",
             errors:[], 
             validations:{
                 required: true, 
@@ -62,7 +71,7 @@ function Register(){
             value: '',
             name:"אימות סיסמא",
             inValid:false,
-            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            appropriateError:"לפחות 6 תווים עם אות (אנגלית) וספרה",
             errors:[], 
             validations:{
                 required: true, 
@@ -89,7 +98,11 @@ function Register(){
         if(isValid){ 
             const {status,message,inputValidation} = await toRegister(user)
             if(status === "ok"){
-                setIsRegister(true)
+                setIsRegister(message)
+                setTimeout(() => {
+                    setIsRegister("")
+                    history.push("/login")
+                }, 1500)
             } else {
                 if(inputValidation){
                     setRegisterInputsDetails(inputValidation)
@@ -131,6 +144,9 @@ function Register(){
                     <Col className="input">
                         <ConfirmPassword setInputs={setRegisterInputsDetails} inputs={registerInputsDetails}/>
                     </Col>
+                    <Row className="alert justify-content-center">
+                        {isRegister&&<Alert className="alert-message" variant="dark">{isRegister}</Alert>}
+                    </Row>
                     <Col>
                         <Container className="d-flex justify-content-center mt-3 mb-4">
                             <Button className="col-7 col-md-8 col-lg-5"

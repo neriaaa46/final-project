@@ -1,5 +1,6 @@
-import {Container,Row,Col,Button} from "react-bootstrap"
-import { useState } from "react"
+import {Container,Row,Col,Button,Alert} from "react-bootstrap"
+import { useState, useEffect } from "react"
+import { useHistory } from "react-router"
 import validation from "../function/validation"
 import { addProdcut } from "../Dal/api"
 import NameProduct from "./addProductComponent/NameProduct"
@@ -13,6 +14,19 @@ import Category from "./addProductComponent/Category"
 
 function AddProduct(){
 
+    const history = useHistory()
+    useEffect(()=>{
+        if(localStorage.getItem("user")){
+            if(!JSON.parse(localStorage.getItem("user")).admin){
+                history.push("/")
+            }
+        } else{
+            history.push("/")
+        }
+    },[])
+
+
+    const[addProductMessage,setAddProductMessage] = useState("")
     const [newProduct, setNewProduct] = useState({
         name: {
             value: '', 
@@ -114,7 +128,10 @@ function AddProduct(){
             
             const {status, message} = await addProdcut(product)
             if(status==="ok"){
-                console.log(status)
+                setAddProductMessage(message)
+                setTimeout(() => {
+                    setAddProductMessage("")
+                }, 2000)
             } else{
                 console.log(message)
             }
@@ -157,8 +174,11 @@ function AddProduct(){
                     <TextProduct product={newProduct} setProduct={setNewProduct}/>
                 </Col>
             </Row>           
-            <Row className="justify-content-center mt-4 mb-3">
+            <Row className="justify-content-center mt-3">
                 <Button variant="light" className="col-4 col-md-2" onClick={()=>addNewProduct()}>הוסף מוצר</Button>
+            </Row>
+            <Row className="alert justify-content-center mb-4">
+                {addProductMessage&&<Alert className="alert-message" variant="dark">{addProductMessage}</Alert>}
             </Row>
               
     </Container>

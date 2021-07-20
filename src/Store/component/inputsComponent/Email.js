@@ -12,6 +12,7 @@ function Email(props){
             <Form.Control type="email"
                           required placeholder="דואר אלקטרוני"
                           name="email"
+                          defaultValue = {props.inputs.email.value}
                           isInvalid = {props.inputs["email"].inValid}
                           className="inputs"
                           onBlur={(e)=>{props.setInputs(validation(e.target,props.inputs))}}/>

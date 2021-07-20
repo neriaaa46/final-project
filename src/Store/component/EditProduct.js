@@ -1,4 +1,4 @@
-import {Container,Row,Col,Button} from "react-bootstrap"
+import {Container,Row,Col,Button,Alert} from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router"
 import validation from "../function/validation"
@@ -14,6 +14,7 @@ import Category from "./addProductComponent/Category"
 
 function EditProduct(){
 
+    const[editProductMessage,setEditProductMessage] = useState("")
     const {productId} = useParams()
     const [editProduct, setEditProduct] = useState({
         name: {
@@ -140,7 +141,10 @@ function EditProduct(){
             
             const {status, message} = await editDataProduct(product)
             if(status==="ok"){
-                console.log(status)
+                setEditProductMessage(message)
+                setTimeout(() => {
+                    setEditProductMessage("")
+                }, 2000)
             } else{
                 console.log(message)
             }
@@ -183,10 +187,12 @@ function EditProduct(){
                     <TextProduct product={editProduct} setProduct={setEditProduct} description={editProduct.description.value}/>
                 </Col>
             </Row>           
-            <Row className="justify-content-center mt-4 mb-3">
+            <Row className="justify-content-center mt-3">
                 <Button variant="light" className="col-4 col-md-2" onClick={()=>edit()}>ערוך מוצר</Button>
             </Row>
-              
+            <Row className="alert justify-content-center mb-4">
+                {editProductMessage&&<Alert className="alert-message" variant="dark">{editProductMessage}</Alert>}
+            </Row>
     </Container>
     </>
 }

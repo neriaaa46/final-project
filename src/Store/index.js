@@ -19,7 +19,6 @@ import UpdateDetails from "./component/UpdateDetails"
 import OrdersReceived from "./component/OrdersReceived"
 import EditProduct from "./component/EditProduct"
 
-
 function App() { 
 
     const [cartProduct, setCartProduct] = useState([]) 
@@ -27,10 +26,10 @@ function App() {
     const [isLogin,setIsLogin] = useState(false)
     const [isAdmin,setIsAdmin] = useState(false)
     const [numOfCartProducts, setNumOfCartProducts] = useState(0)
-    
-
-
+  
+   
     useEffect(()=>{
+
         if(localStorage.getItem("cart")){
             setNummberOfCartProducts(JSON.parse(localStorage.getItem("cart")).length)
         }
@@ -53,8 +52,6 @@ function App() {
      function setNummberOfCartProducts(value){
         setNumOfCartProducts(value)
      }
-
-
 
 
     return (

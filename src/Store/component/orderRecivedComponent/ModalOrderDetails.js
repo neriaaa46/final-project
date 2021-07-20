@@ -1,8 +1,11 @@
 import {Container,Row,Table,Modal,Card,ListGroup,Col} from "react-bootstrap"
-import {pathOrdersImage} from "../../Dal/api"
 import {pathOrdersDataBase} from "../../Dal/api"
+import {whichClassStatus} from "../../function/utils"
 
 function ModalOrdersDetails(props){
+
+    
+
     return <>
     <Container>
         <Modal size="lg" closeButton show={props.showModal} onHide={props.handleClose}>
@@ -22,11 +25,11 @@ function ModalOrdersDetails(props){
                                 <h6>תאריך : {props.order.date.slice(0,9)}</h6>
                             </Col>
                             <Col  xs={12} lg={4}>
-                                <h6>סטאטוס : {props.order.status}</h6>
+                                <h6>סטאטוס : {whichClassStatus(props.statusClassName)}</h6>
                             </Col>
                         </Row>
                         
-                        <h4 className="mt-3 mb-3 mr-4">פרטיים אישיים :</h4>
+                        <h4 className="mt-3 mb-3 mr-4">פרטים אישיים :</h4>
                         <Row className="justify-content-center">
                             <Card style={{ width: '20rem' }}>
                                 <ListGroup variant="flush">
@@ -62,7 +65,7 @@ function ModalOrdersDetails(props){
                                 <td>{product.name}</td>
                                 <td>{product.size}</td>
                                 <td>{product.imagesProduct.map((image, index)=>{
-                                    return <a key={index} href={`${pathOrdersDataBase}${image}`}>img{index+1} </a>
+                                    return <a key={index} target="_blank" href={`${pathOrdersDataBase}${image}`}>img{index+1} </a>
                                 })}</td>
                                 </tr>
                             </tbody>)}

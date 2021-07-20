@@ -7,11 +7,11 @@ function ModalImages(props){
 
     return <>
         <Container>
-            <Modal size="xs" className="modal-images" show={props.showModalImages} onHide={props.handleCloseImages}>
-                    <Modal.Body className="modal-body-images">
+            <Modal size="xs" id="modal1" show={props.showModalImages} onHide={props.handleCloseImages}>
+                    <Modal.Body >
                         <Carousel>
                         {props.arrayImages.map((imagesProduct)=>{
-                        return <Carousel.Item >
+                        return <Carousel.Item>
                                 <img
                                 className="d-block mx-auto"
                                 src = {`${pathOrdersImage}${imagesProduct}`}

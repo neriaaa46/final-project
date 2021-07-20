@@ -1,5 +1,6 @@
-import {Container,Button,Col,Row} from "react-bootstrap"
-import { useState } from "react"
+import {Container,Button,Col,Row,Alert} from "react-bootstrap"
+import { useState, useEffect } from "react"
+import { useHistory } from "react-router"
 import validation from "../function/validation"
 import Email from "./inputsComponent/Email"
 import Password from "./inputsComponent/Password"
@@ -10,7 +11,9 @@ import {toUpdate} from "../Dal/api"
 
 function UpdateDetails(){
 
-    const[isUpdate,setIsUpadate] = useState(false)
+    const history = useHistory()
+
+    const[isUpdate,setIsUpadate] = useState("")
     const[errorMessage,setErrorMessage] = useState("")
     const [updateInputsDetails, setUpdateInputsDetails] = useState({
         firstName: {
@@ -21,7 +24,7 @@ function UpdateDetails(){
             errors: [], 
             validations: {
                 required: true, 
-                pattern: /^[a-z\u0590-\u05fe]+$/i
+                pattern: /^[a-z \u0590-\u05fe]+$/i
             }
         }, 
         lastName: {
@@ -32,7 +35,7 @@ function UpdateDetails(){
             errors:[], 
             validations:{
                 required: true, 
-                pattern: /^[a-z\u0590-\u05fe]+$/i
+                pattern: /^[a-z \u0590-\u05fe]+$/i
             }
         },
         email: {
@@ -50,7 +53,7 @@ function UpdateDetails(){
             value: '',
             name:"סיסמא",
             inValid:false,
-            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            appropriateError:"לפחות 6 תווים עם אות (אנגלית) וספרה",
             errors:[], 
             validations:{
                 required: true, 
@@ -61,7 +64,7 @@ function UpdateDetails(){
             value: '',
             name:"אימות סיסמא",
             inValid:false,
-            appropriateError:"לפחות 6 תווים עם אות וספרה",
+            appropriateError:"לפחות 6 תווים עם אות (אנגלית) וספרה",
             errors:[], 
             validations:{
                 required: true, 
@@ -70,6 +73,18 @@ function UpdateDetails(){
         }
        
     })
+
+    useEffect(()=>{
+        if(localStorage.getItem("user")){
+          const {firstName, lastName, email} = JSON.parse(localStorage.getItem("user"))
+          updateInputsDetails.firstName.value = firstName
+          updateInputsDetails.lastName.value = lastName
+          updateInputsDetails.email.value = email
+          setUpdateInputsDetails({...updateInputsDetails})
+        } else {
+            history.push("/")
+        }
+    },[])
 
 
     async function updateDetailsUser(){
@@ -91,7 +106,10 @@ function UpdateDetails(){
             const {id, email} = JSON.parse(localStorage.getItem("user"))
             const {status, message, inputValidation} = await toUpdate(user, id, email)
             if(status === "ok"){
-                setIsUpadate(true)
+                setIsUpadate(message)
+                setTimeout(() => {
+                    setIsUpadate("")
+                }, 2000)
             } else {
                 if(inputValidation){
                     setUpdateInputsDetails(inputValidation)
@@ -133,8 +151,11 @@ function UpdateDetails(){
                     <Col className="input">
                         <ConfirmPassword setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                     </Col>
+                    <Row className="alert justify-content-center">
+                        {isUpdate&&<Alert className="alert-message" variant="dark">{isUpdate}</Alert>}
+                    </Row>
                     <Col>
-                        <Container className="d-flex justify-content-center mt-3 mb-4">
+                        <Container className="d-flex justify-content-center mb-4">
                             <Button className="col-7 col-md-8 col-lg-5" 
                             variant="light" 
                             onClick={()=>updateDetailsUser()}>עדכן פרטים</Button>
