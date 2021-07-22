@@ -8,7 +8,7 @@ function Email(props){
     return <>
         <div>
         <InputGroup hasValidation>
-            <InputGroup.Text><HiOutlineMail/></InputGroup.Text>
+            <InputGroup.Text className="input-icon-background"><HiOutlineMail className="input-icon"/></InputGroup.Text>
             <Form.Control type="email"
                           required placeholder="דואר אלקטרוני"
                           name="email"

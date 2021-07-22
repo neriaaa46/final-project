@@ -6,7 +6,7 @@ import {FaAddressCard} from "react-icons/fa"
 function Zip(props){
     return <> 
         <InputGroup hasValidation>
-        <InputGroup.Text><FaAddressCard/></InputGroup.Text>
+        <InputGroup.Text className="input-icon-background"><FaAddressCard className="input-icon"/></InputGroup.Text>
         <Form.Control 
         type="text" 
         name="zip"

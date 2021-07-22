@@ -8,7 +8,7 @@ function ConfirmPassword(props){
     return <>
         <div>
         <InputGroup hasValidation className="inputs">
-            <InputGroup.Text><GiConfirmed/></InputGroup.Text>
+            <InputGroup.Text className="input-icon-background"><GiConfirmed className="input-icon"/></InputGroup.Text>
             <Form.Control 
             type="password"
             name="confirmPassword"

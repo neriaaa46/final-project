@@ -1,6 +1,6 @@
 import {Container,Row,Form,Button,Col,Alert} from "react-bootstrap"
 import {Link, useParams} from "react-router-dom"
-import "../css/product.css"
+import "../css/index.css"
 import {getProductById, sendImages, pathImages} from "../Dal/api"
 import { useState, useEffect } from "react"
 
@@ -81,13 +81,15 @@ return <>
         <Row className="justify-content-around card-product">
 
             <Col xs={12} md={6}>
-                <img className="img-fluid" alt="product" src={`${pathImages}${product.image}`} width="300px"></img>
-                <h2 className="mt-2 mb-5 mr-5"> מחיר - {product.price} &#8362;</h2>
+                <div className="d-flex justify-content-center flex-column">
+                    <img className="img-fluid mx-auto" alt="product" src={`${pathImages}${product.image}`} width="300px"></img>
+                    <h5 className="text-center mb-5"> מחיר - {product.price} &#8362;</h5>
+                </div>
             </Col>
 
             <Col xs={12} md={6}>
-                <h3 className="mb-2">שם המוצר : {product.name}</h3>
-                <h5 className="mb-4">גודל המוצר : {product.size} ס"מ</h5>
+                <h4 className="mb-2"><b>שם המוצר : {product.name}</b></h4>
+                <h5 className="mb-4"><b>גודל המוצר : {product.size} ס"מ</b></h5>
                 <p className="description mb-4">{product.description}</p>
 
                 <Form.Group controlId="formFileMultiple" className="input">
@@ -96,8 +98,8 @@ return <>
                     <small className="text-danger">{numImagesMatching}</small>
                 </Form.Group> 
                 {!props.isAdmin&&<Row>
-                    <Button className="ml-2  mb-2" variant="light" onClick={()=>addProductToLocalstorge()}>הוסף לסל שלי</Button>
-                    <Link to="/myProducts"><Button variant="light">חזור למוצרים שלנו</Button></Link>
+                    <Button className="ml-2  mb-2" variant="dark" onClick={()=>addProductToLocalstorge()}>הוסף לסל שלי</Button>
+                    <Link to="/myProducts"><Button variant="dark">חזור למוצרים שלנו</Button></Link>
                 </Row>}
                 
             </Col>

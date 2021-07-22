@@ -16,12 +16,12 @@ import {useHistory} from "react-router-dom"
         show={props.smShow}
         aria-labelledby="example-modal-sizes-title-sm"
       >
-        <Modal.Header >
+        <Modal.Header className="modal-order-completion">
           <Modal.Title id="example-modal-sizes-title-sm">
            {props.headerModal}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="modal-order-completion">
             <h5>{props.numOrder}</h5>
             <p>{props.textModal}</p>
             <Row className="justify-content-center">

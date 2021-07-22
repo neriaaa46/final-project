@@ -165,7 +165,6 @@ async function searchOrdersby(searchby, searchValue){
     body: JSON.stringify([searchby, searchValue])
   })
   const orders = await data.json()
-  console.log(orders)
   return orders
 }
 

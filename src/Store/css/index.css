@@ -1,15 +1,375 @@
 
 body{
-    background-color: rgb(245, 222, 231);
-    text-align: right;
-  }
+  text-align: right;
+}
+
+body::before{
+  background-image: url("C:/Users/נריה/Desktop/project-store/my-app/src/image/background1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  content: " ";
+  position: fixed;
+  text-align: right;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: -1;
+}
 
 
-.badge{
-  background-color: rgb(212, 190, 248);
-} 
+.navbar{
+  padding: 0.3rem 1rem;
+  background-color:  #b99a84;
+  position: fixed;
+  width: 100%;
+  z-index:20;
+  top: 0px;
+
+}
+
 
 .link-nav{
+  font-weight: 600;
   text-decoration: none;
-  color: rgb(56, 56, 56);
+  transition: all 0.2s ease-in-out;
+
 }
+
+.link-nav:hover{
+  background-color: #b3927d;
+}
+.link-nav:focus-within{
+  background-color: inherit;
+}
+
+
+
+h1{
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 2px #b99a84;
+  text-align: center;
+}
+
+/*nav*/
+.badge{
+  background-color: #e9e1d5;
+} 
+
+.nav-person, .nav-cart{
+  color: black;
+}
+
+
+ /*inputs*/
+
+ .input-icon-background{
+  background-color:#faeb96;
+ }
+ .input-icon{
+  color:  #000000;
+ }
+
+
+
+/* explanation component  */
+
+.explanation-div {
+  min-height: 150px;
+}
+
+.explanation-icon{
+  color: rgb(19, 141, 90);
+}
+
+.explanation h5{
+  font-weight: 700;
+}
+
+
+
+
+/* carusel component  */
+
+.carousel-home-page {
+  margin-top: 40px;
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+
+.carousel-text-h{
+  font-weight: 700;
+  font-size: 26px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+
+.carousel-text-p{
+  font-weight: 700;
+  font-size: 20px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+
+}
+.d-block {
+  height: 340px;
+}
+
+.input{
+  height: 90px ; 
+}
+
+
+
+/*recoomendation*/
+.recommendations{
+  padding: 1px 0px;
+  min-height: 100px;
+  background-color: rgba(255, 255, 255, 0.548);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: black 1px solid;
+}
+.recommendations li{
+  margin: 0px 0px;
+  max-width:100%;
+  word-break:break-word; 
+  background-color: #b3927d59; 
+ 
+}
+.recommendations .list-rec {
+  margin: 0px 0px;
+  padding: 0px 0px;
+
+}
+
+.list-rec{
+  list-style: none;
+}
+.comment, .delete{
+  color:#000000
+}
+
+.check{
+  color:rgb(18, 136, 67) 
+}
+.cros{
+  color: rgb(226, 0, 0);
+}
+
+
+
+
+
+/* myProduct component */
+
+.card-myProducts {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(255, 255, 255, 0.329);
+}
+.card-myProducts-body{
+  min-height: 100px;
+  padding: 5px;
+}
+
+.card-myProducts:hover {
+  background-color: #f8ea9c81;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border: 5px solid #fff09800;
+}
+
+.my-product-icon{
+  color: black;
+}
+
+@media screen and (max-width: 767px) {
+  .card-myProducts {
+    max-width: 250px;
+  }
+}
+
+/*product*/
+.card-product{
+  background-color: rgba(248, 248, 248, 0.452);
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border:black solid 1px;
+}
+
+.description {
+  white-space: pre-line;
+}
+
+.about{
+  margin: auto;
+  padding: 30px;
+  white-space: pre-line;
+  max-width: 900px;
+  font-weight: 500;
+  background: #e9e1d5;
+
+}
+
+
+/*cart*/
+.table-cart th{
+  color: rgb(100, 204, 107);
+}
+
+.img-cart-table{
+  color:rgb(236, 224, 111)
+}
+.delete-cart-table{
+  color:rgb(199, 33, 33)
+}
+.cart-image{ /*image product in table cart*/
+  width: 70px;
+}
+
+#modal1 .modal-content{ /*carousel image of cart*/
+  padding: 0px;
+  border: 0px;
+  background-color: rgba(218, 197, 218, 0) !important;
+}
+
+
+.order-summary {
+  background-color:  #33af67a6;
+  border: 2px solid rgb(68, 62, 62) ;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.514), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.modal-order-completion{
+  background-color: #ecddc9;
+}
+.modal-order-completion{
+ border-bottom: #756a6a73 1px solid;
+}
+
+/*order-history*/
+.accordion-order-history{
+  color: white; 
+  
+}
+
+
+
+/*login component*/
+
+.forget-password{
+  margin: 0px;
+  font-size: 12px;
+}
+
+.modal-register-login {
+  background-color: #e9e1d5;
+}
+.modal-register-login h1{
+  text-shadow: 2px 2px 2px rgb(46, 46, 46);
+  color: black;
+}
+.modal-register-login p {
+  font-size: 16px;
+}
+
+.modal-register-login p span {
+  color: rgb(77, 77, 228);
+  cursor: pointer;
+}
+.modal-register-login p span:hover {
+  color: rgb(20, 20, 151);
+  font-size: 18px;
+}
+
+.btn-orders-recived-progres{
+  background-color: #e2c837;
+  border:none
+}
+.btn-orders-recived-ready{
+  background-color: #5cb2dd;
+  border:none
+}
+.btn-orders-recived-sent{
+  background-color: rgb(58, 197, 139);
+  border:none
+}
+
+.btn-orders-recived-progres:hover{
+  background-color: #ddc01b;
+}
+.btn-orders-recived-ready:hover{
+  background-color: #198ec9;
+}
+.btn-orders-recived-sent:hover{
+  background-color: rgb(15, 173, 107);
+}
+
+.btn-orders-recived-progres:focus-within{
+  background-color: inherit;
+}
+.btn-orders-recived-ready:focus-within{
+  background-color: inherit;
+}
+.btn-orders-recived-sent:focus-within{
+  background-color: inherit;
+}
+
+
+.btn-orders-recived-progres:focus{
+  box-shadow: 0 0 0 0.2rem #ddc01b;
+}
+.btn-orders-recived-ready:focus{
+  box-shadow: 0 0 0 0.2rem #198ec9;
+
+}
+.btn-orders-recived-sent:focus{
+  box-shadow: 0 0 0 0.2rem rgb(15, 173, 107);
+}
+
+
+
+.status-pending {
+  color: #f4a688;
+}
+.status-inProgress {
+  color: #fdea7c;
+}
+.status-ready {
+  color: #5cb2dd;
+}
+.status-sent {
+  color: rgb(58, 197, 139);
+}
+
+.show-orders {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  text-align: right;
+}
+
+.icon-card{
+  cursor: pointer;
+}
+.icon-card:hover{
+  border:rgb(0, 0, 0) solid 1px;
+}
+
+.alert{
+  height: 40px;
+}
+.alert-message{
+  width: 220px;
+  height: 28px;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+}
+

@@ -102,7 +102,6 @@ function EditProduct(){
                 }
             }
             setEditProduct({...editProduct})
-            console.log(editProduct);
 
         }
         catch(error){
@@ -188,10 +187,10 @@ function EditProduct(){
                 </Col>
             </Row>           
             <Row className="justify-content-center mt-3">
-                <Button variant="light" className="col-4 col-md-2" onClick={()=>edit()}>ערוך מוצר</Button>
+                <Button variant="dark" className="col-4 col-md-2" onClick={()=>edit()}>ערוך מוצר</Button>
             </Row>
             <Row className="alert justify-content-center mb-4">
-                {editProductMessage&&<Alert className="alert-message" variant="dark">{editProductMessage}</Alert>}
+                {editProductMessage&&<Alert className="alert-message" variant="success">{editProductMessage}</Alert>}
             </Row>
     </Container>
     </>

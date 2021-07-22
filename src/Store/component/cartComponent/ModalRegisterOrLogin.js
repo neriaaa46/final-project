@@ -2,7 +2,7 @@ import {Container,Modal} from "react-bootstrap"
 import { useState } from "react"
 import LogIn from "../LogIn"
 import Register from "../Register"
-import "../../css/product.css"
+import "../../css/index.css"
 
 
 function ModalRegisterOrLogin(props){
@@ -21,7 +21,7 @@ function ModalRegisterOrLogin(props){
                     </Modal.Header>
                     <Modal.Body>
                     {shouldLoginOrRegister&&<LogIn setIsAdmin={props.setIsAdmin} setIsLogin={props.setIsLogin} nextPath="/orderCompletion"/>} 
-                    {!shouldLoginOrRegister&&<Register/>}  
+                    {!shouldLoginOrRegister&&<Register setShouldLoginOrRegister={setShouldLoginOrRegister} inModal={"inModal"}/>}  
                     </Modal.Body>
                 </Container>
             </Modal>

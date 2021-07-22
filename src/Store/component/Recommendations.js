@@ -1,10 +1,10 @@
 import {Container,Button,Col,Row, Alert} from "react-bootstrap"
 import { useState,useEffect } from "react"
 import {MdDelete} from "react-icons/md"
-import {FcApprove} from "react-icons/fc"
-import {FcDisapprove} from "react-icons/fc"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faCommentDots } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import validation from "../function/validation"
 import {addRecommendation, getUsersRecommendations, deleteRecommendation, changeActiveRecommendation} from "../Dal/api"
 import TextBox from "./inputsComponent/TextBox"
@@ -101,29 +101,29 @@ function Recommendations(props){
         <h1>המלצות שלנו</h1>
 
        {(notActiveRecommendations.length!==0)&&props.isAdmin&&<Row className="justify-content-center mt-5">
-            <Col xs={12} md={10} lg={8} className="recommendations">
+            <Col xs={12} md={10} lg={8} className="recommendations px-3 py-3">
                 <ul className="list-rec">
-                    {props.isAdmin&&<h4 className="mb-4">ממתין לאישור :</h4>}
+                    {props.isAdmin&&<h4 className="mb-4 mr-3">ממתין לאישור :</h4>}
                     {notActiveRecommendations.map((recommendation,index)=>
                     <li key={index} className="mb-3">
-                         <FontAwesomeIcon icon={faStar} size={"md"} className="star ml-3"/>{' '}
+                         <FontAwesomeIcon icon={faCommentDots} size={"lg"} className="comment ml-3 mr-3"/>{' '}
                          {recommendation.firstName} {recommendation.lastName} - {recommendation.text}
-                         {!!props.isAdmin&&<MdDelete size={20} onClick={()=>remove(recommendation.recommendationId)} className="mr-2 icon-card"/>}
-                         {!!props.isAdmin&&<FcApprove size={25} onClick={()=>changeActive(recommendation.recommendationId, true)} className="mr-2 icon-card"/>}
+                         {!!props.isAdmin&&<MdDelete size={25} onClick={()=>remove(recommendation.recommendationId)} className="mr-3 icon-card delete"/>}
+                         {!!props.isAdmin&&<FontAwesomeIcon icon={faCheckCircle} size="lg" onClick={()=>changeActive(recommendation.recommendationId, true)} className="mr-2 icon-card check"/>}
                     </li>)}  
                 </ul>
             </Col>
         </Row>}
         {(activeRecommendations.length!==0)&&<Row className="justify-content-center mt-5">
-            <Col xs={12} md={10} lg={8} className="recommendations">
+            <Col xs={12} md={10} lg={8} className="recommendations px-3 py-3">
                 <ul className="list-rec">
-                {!!props.isAdmin&&<h4 className="mb-4">מאושר :</h4>}
+                {!!props.isAdmin&&<h4 className="mb-4 mr-3">מאושר :</h4>}
                     {activeRecommendations.map((recommendation,index)=>
-                    <li key={index} className="mb-3">
-                         <FontAwesomeIcon icon={faStar} size={"md"} className="star ml-3"/>{' '}
+                    <li key={index} className="mb-3"> 
+                         <FontAwesomeIcon icon={faCommentDots} size={"lg"} className="comment ml-3 mr-3"/>{' '}
                          {recommendation.firstName} {recommendation.lastName} - {recommendation.text}
-                         {!!props.isAdmin&&<MdDelete size={20} onClick={()=>remove(recommendation.recommendationId)} className="mr-2 icon-card"/>}
-                         {!!props.isAdmin&&<FcDisapprove size={25} onClick={()=>changeActive(recommendation.recommendationId, false)} className="mr-2 icon-card"/>}
+                         {!!props.isAdmin&&<MdDelete size={25} onClick={()=>remove(recommendation.recommendationId)} className="mr-3 icon-card delete"/>}
+                         {!!props.isAdmin&&<FontAwesomeIcon icon={faTimesCircle} size="lg" onClick={()=>changeActive(recommendation.recommendationId, false)} className="mr-2 icon-card cros"/>}
                     </li>)}  
                 </ul>
             </Col>
@@ -134,11 +134,11 @@ function Recommendations(props){
             </Col>
         </Row>}
         <Row className="alert justify-content-center">
-            {isAdded&&<Alert className="alert-message" variant="dark">{isAdded}</Alert>}
+            {isAdded&&<Alert className="alert-message" variant="success">{isAdded}</Alert>}
         </Row>
 
         {!props.isAdmin&&props.isLogin&&<Container className="d-flex justify-content-center mb-3">
-                <Button className="col-7 col-md-3 col-lg-2" variant="light" onClick={()=>{addNewRecommendation()}}>הוסף המלצה</Button>
+                <Button className="col-7 col-md-3 col-lg-2" variant="dark" onClick={()=>{addNewRecommendation()}}>הוסף המלצה</Button>
         </Container>} 
     </Container>
     </>

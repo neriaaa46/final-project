@@ -6,7 +6,7 @@ import {FaRegAddressCard} from "react-icons/fa"
 function Address(props){
     return <> 
         <InputGroup hasValidation>
-        <InputGroup.Text><FaRegAddressCard/></InputGroup.Text>
+        <InputGroup.Text className="input-icon-background"><FaRegAddressCard className="input-icon"/></InputGroup.Text>
         <Form.Control 
         type="text" 
         name="address"

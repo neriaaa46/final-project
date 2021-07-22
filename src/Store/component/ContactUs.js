@@ -1,6 +1,6 @@
 import {Container,Button,Col,Row,Alert} from "react-bootstrap"
 import validation from "../function/validation"
-import "../css/recommendations.css"
+import "../css/index.css"
 import { useState } from "react"
 import { useHistory } from "react-router"
 import FirstName from "./inputsComponent/FirstName"
@@ -148,10 +148,10 @@ function ContactUs(){
                     </Col>
                 </Container>
                 <Row className="alert justify-content-center">
-                    {sentRequest &&<Alert className="alert-message" variant="dark">{sentRequest}</Alert>}
+                    {sentRequest &&<Alert className="alert-message" variant="success">{sentRequest}</Alert>}
                 </Row>
                 <Container className="d-flex justify-content-center mb-3">
-                    <Button className="col-6 col-md-6 mt-2" variant="light" onClick={()=>sendRequest()}>שלח פנייה</Button>
+                    <Button className="col-6 col-md-6 mt-2" variant="dark" onClick={()=>sendRequest()}>שלח פנייה</Button>
                 </Container>
                 
             </Col>

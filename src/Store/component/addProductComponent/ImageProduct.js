@@ -5,7 +5,7 @@ import validation from "../../function/validation"
 function ImageProduct(props){
     return <>
       <div style={{height:"115px"}}>
-      <InputGroup hasValidation>
+      <InputGroup hasValidation className="uplod-image">
                 <Form.File  
                 label="תמונה המייצגת את המוצר"
                 name="image" 

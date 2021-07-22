@@ -7,7 +7,7 @@ function Subject(props) {
     return <>  
         <div>
         <InputGroup hasValidation>
-            <InputGroup.Text><MdSubject/></InputGroup.Text>
+            <InputGroup.Text className="input-icon-background"><MdSubject className="input-icon"/></InputGroup.Text>
             <Form.Control 
                 as="select" 
                 custom 

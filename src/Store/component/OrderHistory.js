@@ -1,7 +1,7 @@
 import {Container,Table,Row,Col,Accordion,Card,Button} from "react-bootstrap"
 import {useEffect, useState} from "react"
 import { useHistory } from "react-router"
-import "../css/product.css"
+import "../css/index.css"
 import {pathImages} from "../Dal/api"
 import {getOrdersByUser} from "../Dal/api"
 
@@ -38,10 +38,10 @@ function OrderHistory(){
             <h3>לא קיימות הזמנות</h3>
         </div>}
 
-        {myOrders.map(order => 
-            <Row className="justify-content-center mt-4">
+        {myOrders.map((order, index) => 
+            <Row className="justify-content-center mt-4" key={index}>
                 <Col xs={12} md={9}>
-                    <Table responsive="sm" className="card-product" >
+                    <Table responsive="sm" striped bordered hover variant="dark">
                         <thead>
                             <tr>
                                 <th>מספר הזמנה</th>
@@ -64,13 +64,13 @@ function OrderHistory(){
                             <tr>
                                 <td colSpan="4" className="px-0">
                                 <Accordion>
-                                    <Accordion.Toggle as={Button} variant="light" eventKey="0" className="mr-3">
+                                    <Accordion.Toggle as={Button} variant="light" eventKey="0" className="mr-3 py-0">
                                         הצג מוצרים
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="0">
                                     <Card.Body className="px-0">
                                         <Table>
-                                            <thead>
+                                            <thead className="accordion-order-history">
                                                 <tr>
                                                     <th>שם מוצר</th>
                                                     <th>גודל</th>
@@ -78,12 +78,12 @@ function OrderHistory(){
                                                     <th>מחיר</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                {order.products.map(product =>
-                                                <tr>
+                                            <tbody className="accordion-order-history">
+                                                {order.products.map((product, index) =>
+                                                <tr key={index}>
                                                     <td>{product.name}</td>
                                                     <td>{product.size}</td>
-                                                    <td><img src={`${pathImages}${product.image}`} style={{width:"80px"}}></img></td>
+                                                    <td><img src={`${pathImages}${product.image}`} style={{width:"100px"}}></img></td>
                                                     <td>{product.price} &#8362;</td>
                                                 </tr>)}
                                             </tbody>

@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./css/index.css"
+import {Container} from "react-bootstrap"
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom"
 import { useState, useEffect } from "react"
 import NavBar from "./component/NavBar"
@@ -58,8 +59,9 @@ function App() {
         <Router>
             <NavBar isAdmin={isAdmin} setIsAdmin={setIsAdmin} isLogin={isLogin} setIsLogin={setIsLogin} 
             numOfCartProducts={numOfCartProducts} setNummberOfCartProducts={setNummberOfCartProducts}/>
-
             <Switch>
+            <Container className="py-5">
+
                 <Route exact path="/">
                 <HomePage/>
                 </Route>
@@ -121,7 +123,7 @@ function App() {
                 <Route exact path="/ordersReceived">
                 <OrdersReceived/>
                 </Route> 
-
+                </Container>
             </Switch>
         </Router>
   

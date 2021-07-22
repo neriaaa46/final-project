@@ -1,5 +1,5 @@
 import {Carousel, Container} from 'react-bootstrap'
-import "../../css/carousel.css" 
+import "../../css/index.css" 
 
 
 function CarouselImages(){
@@ -12,8 +12,8 @@ function CarouselImages(){
                     alt="First slide"
                     />
                     <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h3 className="carousel-text-h">איננו זוכרים ימים, אנו זוכרים רגעים</h3>
+                    <p className="carousel-text-p">BLOCK-PIC מנציחים לך את הזכרון</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -23,8 +23,8 @@ function CarouselImages(){
                     alt="Second slide"
                     />
                     <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h3 className="carousel-text-h">אתה תתעד את הרגע אנחנו נדאג שתזכור אותו </h3>
+                    <p className="carousel-text-p">BLOCK-PIC מנציחים לך את הזכרון</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -35,20 +35,20 @@ function CarouselImages(){
                     />
 
                     <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <h3 className="carousel-text-h">תמונה אחת שווה אלף מילים</h3>
+                    <p className="carousel-text-p">BLOCK-PIC מנציחים לך את הזכרון</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src='/img/carousel4.jpeg'
+                    src='/img/carousel5.jpg'
                     alt="Third slide"
                     />
 
                     <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <h3 className="carousel-text-h">מתנה בלתי נשכחת לכל אירוע</h3>
+                    <p className="carousel-text-p">BLOCK-PIC מנציחים לך את הזכרון</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 </Carousel>

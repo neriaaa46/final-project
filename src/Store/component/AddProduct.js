@@ -175,10 +175,10 @@ function AddProduct(){
                 </Col>
             </Row>           
             <Row className="justify-content-center mt-3">
-                <Button variant="light" className="col-4 col-md-2" onClick={()=>addNewProduct()}>הוסף מוצר</Button>
+                <Button variant="dark" className="col-4 col-md-2" onClick={()=>addNewProduct()}>הוסף מוצר</Button>
             </Row>
             <Row className="alert justify-content-center mb-4">
-                {addProductMessage&&<Alert className="alert-message" variant="dark">{addProductMessage}</Alert>}
+                {addProductMessage&&<Alert className="alert-message" variant="success">{addProductMessage}</Alert>}
             </Row>
               
     </Container>

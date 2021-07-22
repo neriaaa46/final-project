@@ -7,7 +7,7 @@ function FirstName(props){
 return <>
     <div>
      <InputGroup hasValidation>
-        <InputGroup.Text><BsPersonCheck/></InputGroup.Text>
+        <InputGroup.Text className="input-icon-background"><BsPersonCheck className="input-icon"/></InputGroup.Text>
         <Form.Control 
         type="text" 
         name="firstName"

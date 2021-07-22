@@ -152,12 +152,12 @@ function UpdateDetails(){
                         <ConfirmPassword setInputs={setUpdateInputsDetails} inputs={updateInputsDetails}/>
                     </Col>
                     <Row className="alert justify-content-center">
-                        {isUpdate&&<Alert className="alert-message" variant="dark">{isUpdate}</Alert>}
+                        {isUpdate&&<Alert className="alert-message" variant="success">{isUpdate}</Alert>}
                     </Row>
                     <Col>
                         <Container className="d-flex justify-content-center mb-4">
                             <Button className="col-7 col-md-8 col-lg-5" 
-                            variant="light" 
+                            variant="dark" 
                             onClick={()=>updateDetailsUser()}>עדכן פרטים</Button>
                         </Container>
                     </Col>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import {Container,Button,Col} from "react-bootstrap"
 import {Link} from "react-router-dom"
-import "../css/logIn.css"
+import "../css/index.css"
 import { useHistory } from "react-router"
 import validation from "../function/validation"
 import {toLogin} from "../Dal/api"
@@ -84,17 +84,17 @@ function LogIn(props){
         <Container className="mt-2">
             <h1 className="header-logIn">שלום, התחבר לאתר</h1>
             <Container className="justify-content-center mt-5">
-                <Col className="col-12 col-md-9 col-lg-5 mx-auto input">
+                <Col className="col-12 col-md-9 col-lg-6 mx-auto input">
                     <Email setInputs={setLoginInputsDetails} inputs={loginInputsDetails}/>
                 </Col>
-                <Col className="col-12 col-md-9 col-lg-5 mx-auto input">
+                <Col className="col-12 col-md-9 col-lg-6 mx-auto input">
                     <Password setInputs={setLoginInputsDetails} inputs={loginInputsDetails}/>
                     <small className="text-danger">{errorMessage}</small>
                 </Col>
-                <Col className="d-flex justify-content-center align-items-end">
-                    <Button variant="light" className="col-4 col-md-3 col-lg-2 ml-4"
+                <Col className="d-flex justify-content-center align-items-end mb-4">
+                    <Button variant="dark" className="col-5 col-md-3 col-lg-2 ml-4"
                             onClick={()=>loginUser()}>התחבר</Button>
-                    <Link><p className="forget-password">שכחתי סיסמא</p></Link>
+                    {/* <Link><p className="forget-password">שכחתי סיסמא</p></Link> */}
                 </Col>
             </Container>
         </Container>

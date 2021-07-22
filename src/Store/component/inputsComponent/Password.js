@@ -8,7 +8,7 @@ function Password(props){
     return <>
         <div>
         <InputGroup hasValidation>
-            <InputGroup.Text><RiLockPasswordFill/></InputGroup.Text>
+            <InputGroup.Text className="input-icon-background"><RiLockPasswordFill className="input-icon"/></InputGroup.Text>
             <Form.Control 
             type="password"
             name="password"

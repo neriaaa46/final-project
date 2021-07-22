@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import {Container,Button,Table} from "react-bootstrap"
 import {useHistory} from "react-router-dom"
-import "../css/product.css"
+import "../css/index.css"
 import ModalRegisterOrLogin from "./cartComponent/ModalRegisterOrLogin"
 import ModalImages from "./cartComponent/ModalImages"
 import {BsImages} from "react-icons/bs"
@@ -80,8 +80,8 @@ return <>
                 <h3 className="mb-4">סיכום הזמנה:</h3>
                 <h5 className="mb-2"> מחיר הזמנה כולל - {props.cartPrice} &#8362;</h5>
                 <h5 className="mb-4">מספר מוצרים כולל - {props.numOfCartProducts}</h5>
-                <Button variant="light" className="ml-2" onClick={()=>checkRegister()}>בצע הזמנה</Button>
-                <Button variant="light" onClick={()=>props.clearCart()}>נקה את הסל</Button>
+                <Button variant="dark" className="ml-2" onClick={()=>checkRegister()}>בצע הזמנה</Button>
+                <Button variant="dark" onClick={()=>props.clearCart()}>נקה את הסל</Button>
             </div>}
           {!props.numOfCartProducts&&<div>
                 <h2>הסל ריק</h2>
@@ -89,7 +89,7 @@ return <>
     </div>
 
     {!!props.numOfCartProducts&& 
-    <Table responsive="sm" className="card-product mb-4" >
+    <Table responsive="sm" striped bordered hover variant="dark" className="table-cart">
         <thead>
         <tr>
             <th>#</th>
@@ -110,10 +110,10 @@ return <>
                     <td>{item["size"]}</td>
                     <td>{item["price"]} &#8362;</td>
                     <td>
-                        <BsImages size={38} className="icon-card" onClick={()=>showImages(item)}></BsImages>
+                        <BsImages size={38} className="icon-card img-cart-table" onClick={()=>showImages(item)}></BsImages>
                     </td>
                     <td>
-                        <RiDeleteBin5Line size ={42}  className="icon-card" onClick={()=>deleteProduct(index)}>מחק מוצר</RiDeleteBin5Line>
+                        <RiDeleteBin5Line size ={42}  className="icon-card delete-cart-table" onClick={()=>deleteProduct(index)}>מחק מוצר</RiDeleteBin5Line>
                     </td>
                 </tr>
             )}

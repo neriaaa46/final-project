@@ -1,4 +1,4 @@
-import {Container,Button,Col,Row, Alert} from "react-bootstrap"
+import {Container,Button,Col,Row,Alert} from "react-bootstrap"
 import validation from "../function/validation"
 import {toRegister} from "../Dal/api"
 import { useState, useEffect } from "react"
@@ -10,7 +10,7 @@ import FirstName from "./inputsComponent/FirstName"
 import LastName from "./inputsComponent/LastName"
 
 
-function Register(){
+function Register(props){
 
     const history = useHistory()
 
@@ -101,7 +101,11 @@ function Register(){
                 setIsRegister(message)
                 setTimeout(() => {
                     setIsRegister("")
-                    history.push("/login")
+                    if(props.inModal==="inModal"){
+                        props.setShouldLoginOrRegister(true)
+                    } else {
+                        history.push("/login")
+                    }
                 }, 1500)
             } else {
                 if(inputValidation){
@@ -121,7 +125,7 @@ function Register(){
     <Container className="mt-2">
         <h1 className="header-logIn"> שלום, הרשם לאתר</h1>
         <Row className="justify-content-center mt-5">
-            <Col xs={12} md={10} lg={5}>
+            <Col xs={12} md={10} lg={6}>
                 <Container >
                         <Col className="input">
                             <FirstName setInputs={setRegisterInputsDetails} inputs={registerInputsDetails}/>
@@ -136,7 +140,7 @@ function Register(){
                 </Container>
             </Col>
 
-            <Col xs={12} md={10} lg={5}>
+            <Col xs={12} md={10} lg={6}>
                 <Container>
                     <Col className="input">
                         <Password setInputs={setRegisterInputsDetails} inputs={registerInputsDetails}/>
@@ -145,12 +149,12 @@ function Register(){
                         <ConfirmPassword setInputs={setRegisterInputsDetails} inputs={registerInputsDetails}/>
                     </Col>
                     <Row className="alert justify-content-center">
-                        {isRegister&&<Alert className="alert-message" variant="dark">{isRegister}</Alert>}
+                        {isRegister&&<Alert className="alert-message" variant="success">{isRegister}</Alert>}
                     </Row>
                     <Col>
                         <Container className="d-flex justify-content-center mt-3 mb-4">
                             <Button className="col-7 col-md-8 col-lg-5"
-                             variant="light"
+                             variant="dark"
                              onClick={()=>{register()}}>הרשם</Button>
                         </Container>
                     </Col>

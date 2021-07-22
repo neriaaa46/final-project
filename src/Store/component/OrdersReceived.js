@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router"
 import {Container, Form, Col, Row, Button} from "react-bootstrap"
-import "../css/product.css"
+import "../css/index.css"
 import {getAllOrders, searchOrdersby} from "../Dal/api"
 import OrdersTable from "./orderRecivedComponent/OrdersTable"
 

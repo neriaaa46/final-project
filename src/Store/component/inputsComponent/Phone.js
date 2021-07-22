@@ -7,7 +7,7 @@ function Phone(props){
 return <>
     <div>
      <InputGroup hasValidation>
-        <InputGroup.Text><FcPhoneAndroid/></InputGroup.Text>
+        <InputGroup.Text className="input-icon-background"><FcPhoneAndroid className="input-icon"/></InputGroup.Text>
         <Form.Control 
         type="text" 
         name="phone"

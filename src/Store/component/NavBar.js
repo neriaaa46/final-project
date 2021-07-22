@@ -3,7 +3,7 @@ import {  FaShoppingCart } from "react-icons/fa"
 import {  BsFillPersonLinesFill } from "react-icons/bs"
 import {Link, useHistory} from "react-router-dom" 
 import Cookies from "js-cookie"
-import "../css/product.css"
+import "../css/index.css"
 
 function NavBar(props){
 
@@ -20,8 +20,9 @@ function NavBar(props){
         history.push("/")
     }
 
+    // bg="light" variant="light"
     return <>
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar collapseOnSelect expand="lg" className="nav-bar">
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
@@ -36,18 +37,18 @@ function NavBar(props){
                 </Nav>
                 <Nav className="mr-auto">
 
-                    <NavDropdown title={<BsFillPersonLinesFill size={22}/>} id="collasible-nav-dropdown">
+                    <NavDropdown title={<BsFillPersonLinesFill size={22} className="nav-person"/>} id="collasible-nav-dropdown">
                         {!props.isLogin&&<NavDropdown.Item as={Link} to="/login" className="link-nav">התחברות</NavDropdown.Item>}
                         {!props.isLogin&&<NavDropdown.Item as={Link} to="/register" className="link-nav">הרשמה</NavDropdown.Item>}
                         {!props.isAdmin&&props.isLogin&&<NavDropdown.Item as={Link} to="/orderHistory" className="link-nav">הזמנות שלי</NavDropdown.Item>}
                         {!!props.isAdmin&&<NavDropdown.Item as={Link} to="/ordersReceived"className="link-nav">הזמנות שהתקבלו</NavDropdown.Item>}
                         {!!props.isAdmin&&<NavDropdown.Item as={Link} to="/addproduct" className="link-nav">הוסף מוצר</NavDropdown.Item>}
                         {props.isLogin&&<NavDropdown.Item as={Link} to="/updateDetails" className="link-nav">עדכן פרטים</NavDropdown.Item>}
-                        {props.isLogin&&<NavDropdown.Item onClick={()=>{logOut()}}>התנתק</NavDropdown.Item>}
+                        {props.isLogin&&<NavDropdown.Item onClick={()=>{logOut()}} className="link-nav">התנתק</NavDropdown.Item>}
                     </NavDropdown>
                 
-                    {!props.isAdmin&&<Nav.Link as={Link} to="/cart" className="link-nav"> 
-                            <FaShoppingCart size={20} className="ml-1"/>
+                    {!props.isAdmin&&<Nav.Link as={Link} to="/cart"> 
+                            <FaShoppingCart size={20} className="ml-1 nav-cart"/>
                             <Badge pill className="badge">{props.numOfCartProducts}</Badge>
                         </Nav.Link>}
                     

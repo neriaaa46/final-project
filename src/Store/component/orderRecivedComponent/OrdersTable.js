@@ -47,13 +47,8 @@ function OrdersTable(props) {
           statusClassName={statusClassName}
         />
         <Col xs={12} md={10} lg={7}>
-          <Table
-            responsive="sm"
-            striped
-            bordered
-            hover
-            size="sm"
-            className={`card-product status-${statusClassName} mt-4`}
+          <Table striped bordered hover variant="dark" responsive="sm"
+            className={`status-${statusClassName} mt-4`}
           >
             <thead>
               <tr>
@@ -79,22 +74,20 @@ function OrdersTable(props) {
                 <td>
                   <ButtonGroup size="sm">
                     <Button
-                      variant="warning"
-                      className="ml-1"
+                      className="ml-1 btn-orders-recived-progres"
                       onClick={() => changeStatus(2, "inProgress")}
                     >
                       בהכנה
                     </Button>
                     <Button
-                      variant="info"
-                      className="ml-1"
+                      className="ml-1 btn-orders-recived-ready"
                       onClick={() => changeStatus(3, "ready")}
                     >
                       מוכן
                     </Button>
                     <Button
-                      variant="success"
-                      className="ml-1"
+                      
+                      className="ml-1 btn-orders-recived-sent"
                       onClick={() => changeStatus(4, "sent")}
                     >
                       נשלח
