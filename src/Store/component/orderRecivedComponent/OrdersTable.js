@@ -62,7 +62,7 @@ function OrdersTable(props) {
             <tbody>
               <tr>
                 <td>{props.order.orderId}</td>
-                <td>{props.order.date.slice(0, 9)}</td>
+                <td>{props.order.date.slice(0, 10)}</td>
                 <td>
                   <GiClick
                     size={30}

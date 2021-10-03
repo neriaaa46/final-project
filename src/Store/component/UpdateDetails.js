@@ -106,6 +106,13 @@ function UpdateDetails(){
             const {id, email} = JSON.parse(localStorage.getItem("user"))
             const {status, message, inputValidation} = await toUpdate(user, id, email)
             if(status === "ok"){
+
+                let user_details = JSON.parse(localStorage.getItem("user"))
+                user_details.email = user.email
+                user_details.firstName = user.firstName
+                user_details.lastName = user.lastName
+                localStorage.setItem("user", JSON.stringify(user_details))
+
                 setIsUpadate(message)
                 setTimeout(() => {
                     setIsUpadate("")

@@ -1,4 +1,4 @@
-import {Container,Row,Form,Button,Col,Alert} from "react-bootstrap"
+import {Container,Row,Form,Button,Col} from "react-bootstrap"
 import {Link, useParams} from "react-router-dom"
 import "../css/index.css"
 import {getProductById, sendImages, pathImages} from "../Dal/api"

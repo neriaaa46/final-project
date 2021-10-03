@@ -13,8 +13,6 @@ import {pathImages} from "../Dal/api"
 
 function Cart(props){
 
-    // const [cartProduct, setCartProduct] = useState([]) 
-    // const [CartPrice, setCartPrice] = useState(0)
     const history = useHistory()
     const [showModal, setShowModal] = useState(false)
     const [showModalImages, setShowModalImages] = useState(false)

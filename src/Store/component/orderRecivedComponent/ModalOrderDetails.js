@@ -22,7 +22,7 @@ function ModalOrdersDetails(props){
                                 <h6>מספר הזמנה : {props.order.orderId}</h6>
                             </Col>
                             <Col  xs={12} lg={4}>
-                                <h6>תאריך : {props.order.date.slice(0,9)}</h6>
+                                <h6>תאריך : {props.order.date.slice(0,10)}</h6>
                             </Col>
                             <Col  xs={12} lg={4}>
                                 <h6>סטאטוס : {whichClassStatus(props.statusClassName)}</h6>
@@ -64,7 +64,7 @@ function ModalOrdersDetails(props){
                                 <td>{index+1}</td>
                                 <td>{product.name}</td>
                                 <td>{product.size}</td>
-                                <td>{product.imagesProduct.map((image, index)=>{
+                                <td>{product.images.map((image, index)=>{
                                     return <a key={index} target="_blank" href={`${pathOrdersDataBase}${image}`}>img{index+1} </a>
                                 })}</td>
                                 </tr>

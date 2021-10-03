@@ -155,7 +155,7 @@ function AddProduct(){
                         <Category product={newProduct} setProduct={setNewProduct}/>
                     </Col>
                 </Col>
-
+                
                 <Col xs={10} md={6} lg={4}> 
                     <Col className="input">
                         <NumOfImages product={newProduct} setProduct={setNewProduct}/>

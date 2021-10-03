@@ -42,8 +42,9 @@ function Recommendations(props){
                 isAdmin = admin
             }
             const allRecommendations = await getUsersRecommendations(isAdmin)
-            const active = allRecommendations.filter((recommendation) => recommendation.active === 1)
-            const notActive = allRecommendations.filter((recommendation) => recommendation.active === 0)
+            const active = allRecommendations.filter((recommendation) => recommendation.active == 1)
+            const notActive = allRecommendations.filter((recommendation) => recommendation.active == 0)
+
             setActiveRecommendations(active)
             setNotActiveRecommendations(notActive)
         }

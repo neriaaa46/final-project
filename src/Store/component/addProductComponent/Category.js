@@ -25,6 +25,7 @@ function Category(props){
                 onChange={(e)=>{props.setProduct(validation(e.target,props.product))}}>
                     <option value="">בחר קטגוריה</option>
                     {categorys.map((value, index)=>{
+                        {console.log(categorys)}
                         return <option key = {index} value={value.categoryId}>{value.name}</option>
                     })}
             </Form.Control>

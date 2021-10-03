@@ -4,18 +4,18 @@ body{
 }
 
 body::before{
-  background-image: url("C:/Users/נריה/Desktop/project-store/my-app/src/image/background1.jpg");
+  background-image: url("../../image/background1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  content: " ";
+  content: "";
   position: fixed;
   text-align: right;
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;
-  z-index: -1;
+  z-index: -5;
 }
 
 

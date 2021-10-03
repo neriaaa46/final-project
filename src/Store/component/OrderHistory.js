@@ -32,12 +32,12 @@ function OrderHistory(){
     }
 
     return <>
+    {console.log(myOrders)}
     <Container className="mt-2">
         <h1>מוצרים שהזמנתי</h1>
         {(myOrders.length===0)&&<div className="order-summary text-center mt-5">
             <h3>לא קיימות הזמנות</h3>
         </div>}
-
         {myOrders.map((order, index) => 
             <Row className="justify-content-center mt-4" key={index}>
                 <Col xs={12} md={9}>
@@ -53,7 +53,7 @@ function OrderHistory(){
                         <tbody>
                             <tr>
                                 <td>{order.orderId}</td>
-                                <td>{order.date.slice(0,9)}</td>
+                                <td>{order.date.slice(0,10)}</td>
                                 <td>{order.address}</td>
                                 <td>{order.zip}</td>
                             </tr>
