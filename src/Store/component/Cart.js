@@ -72,7 +72,9 @@ return <>
     <h1>הסל שלי</h1>
 
     <ModalRegisterOrLogin handleClose={handleClose} showModal={showModal} setIsAdmin={props.setIsAdmin} setIsLogin={props.setIsLogin}/>
+
     <ModalImages handleCloseImages={handleCloseImages} showModalImages={showModalImages} arrayImages={arrayImages}/>
+    
     <div className="order-summary text-center mb-4">
          {!!props.numOfCartProducts&&<div>
                 <h3 className="mb-4">סיכום הזמנה:</h3>

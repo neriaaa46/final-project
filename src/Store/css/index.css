@@ -159,7 +159,7 @@ h1{
 
 
 
-/* myProduct component */
+/* myProduct*/
 
 .card-myProducts {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -187,7 +187,9 @@ h1{
   }
 }
 
+
 /*product*/
+
 .card-product{
   background-color: rgba(248, 248, 248, 0.452);
   padding-right: 10px;
@@ -259,6 +261,7 @@ h1{
 
 
 
+
 /*login component*/
 
 .forget-password{
@@ -285,6 +288,13 @@ h1{
   color: rgb(20, 20, 151);
   font-size: 18px;
 }
+
+
+
+
+
+
+
 
 .btn-orders-recived-progres{
   background-color: #e2c837;

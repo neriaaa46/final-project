@@ -122,7 +122,7 @@ function ContactUs(){
 
         <Row className="justify-content-center mt-5">
             <Col xs={12} md={8} lg={5}>
-                <Container >
+                <Container>
                         <Col className="input">
                             <FirstName setInputs={setContactUsInputsDetails} inputs={contactUsInputsDetails}/>
                         </Col>
@@ -148,7 +148,7 @@ function ContactUs(){
                     </Col>
                 </Container>
                 <Row className="alert justify-content-center">
-                    {sentRequest &&<Alert className="alert-message" variant="success">{sentRequest}</Alert>}
+                    {sentRequest&&<Alert className="alert-message" variant="success">{sentRequest}</Alert>}
                 </Row>
                 <Container className="d-flex justify-content-center mb-3">
                     <Button className="col-6 col-md-6 mt-2" variant="dark" onClick={()=>sendRequest()}>שלח פנייה</Button>

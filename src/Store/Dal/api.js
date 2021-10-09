@@ -152,20 +152,6 @@ async function getAllOrders() {
 }
 
 
-async function searchOrdersby(searchby, searchValue){
-  const data = await fetch(`${url}/orders/search`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: 'include', 
-    body: JSON.stringify([searchby, searchValue])
-  })
-  const orders = await data.json()
-  return orders
-}
-
-
 async function getLastUserAddress(userId) { 
   const data = await fetch(`${url}/orders/?userAddress=${userId}`,{
     method: "GET",
@@ -188,6 +174,22 @@ async function getStatusOrder(orderId) {
   const status = await data.json()
   return status
 }
+
+
+
+async function searchOrdersby(searchby, searchValue){
+  const data = await fetch(`${url}/orders/search`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include', 
+    body: JSON.stringify([searchby, searchValue])
+  })
+  const orders = await data.json()
+  return orders
+}
+
 
 
 async function updateStatusOrder(orderId, statusId) { 

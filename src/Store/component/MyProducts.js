@@ -51,6 +51,7 @@ function MyProducts(props){
                         <div onClick={()=>{history.push(`/product/${product.productId}`)}}>
                             <Card.Img variant="top" src ={`${pathImages}${product.image}`}/>
                         </div>
+
                         <Card.Body className="card-myProducts-body">
                         <h5 className="text-center">{product.name}</h5>
                             <h6 className="text-center">
@@ -60,6 +61,7 @@ function MyProducts(props){
                             מחיר - {product.price} &#8362;
                             </h5>
                         </Card.Body>
+                        
                             {!!props.isAdmin&&<Row className="flex-row-reverse">
                             {!product.active&&<FontAwesomeIcon icon={faEye} size={"lg"} className="ml-4 mb-2 icon-card my-product-icon" onClick={()=>changeActive(product.productId, product.active)}/>}
                             {!!product.active&&<FontAwesomeIcon icon={faEyeSlash} size={"lg"} className="ml-4  mb-2 icon-card my-product-icon" onClick={()=>changeActive(product.productId, product.active)}/>}

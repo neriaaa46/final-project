@@ -115,6 +115,7 @@ function Recommendations(props){
                 </ul>
             </Col>
         </Row>}
+
         {(activeRecommendations.length!==0)&&<Row className="justify-content-center mt-5">
             <Col xs={12} md={10} lg={8} className="recommendations px-3 py-3">
                 <ul className="list-rec">
@@ -129,6 +130,8 @@ function Recommendations(props){
                 </ul>
             </Col>
         </Row>}
+
+        
        {!props.isAdmin&&props.isLogin&&<Row className="justify-content-center mt-3">
             <Col xs={12} md={9} lg ={7}>
                 <TextBox setInputs={setRecommendationsInputsDetails} inputs={recommendationsInputsDetails}/>

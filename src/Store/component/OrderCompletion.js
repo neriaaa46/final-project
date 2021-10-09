@@ -110,7 +110,7 @@ function OrderCompletion(props){
 
         if(isValid){ 
 
-            const cart =  JSON.parse(localStorage.getItem("cart"))
+            const cart = JSON.parse(localStorage.getItem("cart"))
             const products = cart.map(product => {
                 return {productId: product.productId, images: product.imagesProduct}
             })
